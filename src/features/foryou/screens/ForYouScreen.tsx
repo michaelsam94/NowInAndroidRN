@@ -84,9 +84,11 @@ export function ForYouScreen({viewModel: vm}: ForYouScreenProps) {
       {uiState.feedState === 'Success' ? (
         <FlatList
           testID="foryou:feed"
+          collapsable={false}
           data={[...uiState.feed]}
           keyExtractor={item => item.id}
           contentContainerClassName="px-4 py-2"
+          initialNumToRender={8}
           renderItem={({item}) => (
             <NewsResourceCard
               userNewsResource={item}

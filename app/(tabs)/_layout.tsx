@@ -17,10 +17,12 @@ export const unstable_settings = {
 function HeaderIconButton({
   icon,
   label,
+  testID,
   onPress,
 }: {
   readonly icon: keyof typeof Ionicons.glyphMap;
   readonly label: string;
+  readonly testID: string;
   readonly onPress: () => void;
 }) {
   const {colors} = useNiaTheme();
@@ -30,7 +32,7 @@ function HeaderIconButton({
       onPress={onPress}
       accessibilityRole="button"
       accessibilityLabel={label}
-      testID={`nav:${label.toLowerCase()}`}
+      testID={testID}
       className="mr-3 p-1">
       <Ionicons name={icon} size={24} color={colors.onSurface} />
     </Pressable>
@@ -90,11 +92,13 @@ export default function TabLayout() {
               <HeaderIconButton
                 icon="search-outline"
                 label="Search"
+                testID="nav:search"
                 onPress={() => router.push('/search')}
               />
               <HeaderIconButton
                 icon="settings-outline"
                 label="Settings"
+                testID="nav:settings"
                 onPress={() => router.push('/settings')}
               />
             </View>
@@ -115,6 +119,7 @@ export default function TabLayout() {
             <HeaderIconButton
               icon="settings-outline"
               label="Settings"
+              testID="nav:settings"
               onPress={() => router.push('/settings')}
             />
           ),
@@ -134,6 +139,7 @@ export default function TabLayout() {
             <HeaderIconButton
               icon="settings-outline"
               label="Settings"
+              testID="nav:settings"
               onPress={() => router.push('/settings')}
             />
           ),

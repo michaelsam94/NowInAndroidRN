@@ -1,16 +1,15 @@
 appId: com.nowinandroidrn.demo
 ---
-# Skips onboarding when present (fresh install / clearState).
+# Bootstrap may already follow topics 1–3 and hide onboarding; do not tap topicTag:1
+# (that would unfollow an already-followed chip).
 - runFlow:
     when:
       visible:
         id: foryou:onboarding
     commands:
       - tapOn:
-          id: topicTag:1
-      - tapOn:
           id: foryou:onboarding-done
       - extendedWaitUntil:
           notVisible:
             id: foryou:onboarding
-          timeout: 10000
+          timeout: 15000

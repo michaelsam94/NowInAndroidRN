@@ -2,7 +2,7 @@ appId: com.nowinandroidrn.demo
 ---
 - launchApp:
     clearState: true
-- runFlow: subflows/complete-onboarding.yaml
+- runFlow: subflows/wait-for-foryou-feed.yaml
 - tapOn:
     id: nav:search
 - extendedWaitUntil:

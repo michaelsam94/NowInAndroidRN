@@ -42,5 +42,7 @@ Shared setup lives in `flows/subflows/complete-onboarding.yaml`.
 ## Tips
 
 - Flows use `launchApp.clearState: true` for a clean MMKV/onboarding state.
+- Shared setup: `subflows/wait-for-foryou-feed.yaml` waits for bootstrap, skips onboarding, and scrolls to `newsResourceCard:1` (do not tap `topicTag:1` during onboarding — bootstrap may already follow that topic).
 - If taps miss, rerun on a cold emulator or increase `timeout` values.
 - Deep links require the dev build with intent filters from `app.config.ts`.
+- CI builds the **demo** package (`com.nowinandroidrn.demo`); run `EXPO_PUBLIC_FLAVOR=demo npx expo prebuild` before local `expo run:android` for Maestro.

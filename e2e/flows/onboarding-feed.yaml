@@ -2,10 +2,6 @@ appId: com.nowinandroidrn.demo
 ---
 - launchApp:
     clearState: true
-- runFlow: subflows/complete-onboarding.yaml
-- extendedWaitUntil:
-    visible:
-      id: foryou:feed
-    timeout: 15000
+- runFlow: subflows/wait-for-foryou-feed.yaml
 - assertVisible:
     id: foryou:feed

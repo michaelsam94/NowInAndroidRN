@@ -1,0 +1,12 @@
+appId: com.nowinandroidrn.demo
+---
+# Bootstrap blocks the UI until seed/sync finishes (see AppProviders).
+- extendedWaitUntil:
+    notVisible:
+      id: nia:bootstrap-placeholder
+    timeout: 90000
+# Tabs header appears once navigation reaches For You.
+- extendedWaitUntil:
+    visible:
+      text: "Now in Android"
+    timeout: 60000
