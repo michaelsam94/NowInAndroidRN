@@ -1,7 +1,7 @@
-import {PlaceholderScreen} from '@core/ui/components/PlaceholderScreen';
+import {SearchScreen, useSearchViewModel} from '@features/search';
+import {defaultSearchDeps} from '@core/infrastructure/features/defaultFeatureDeps';
 
 export default function SearchRoute() {
-  return (
-    <PlaceholderScreen title="Search" subtitle="Full-text search — Phase 8" />
-  );
+  const viewModel = useSearchViewModel(defaultSearchDeps());
+  return <SearchScreen viewModel={viewModel} />;
 }

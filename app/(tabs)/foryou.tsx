@@ -1,10 +1,7 @@
-import {PlaceholderScreen} from '@core/ui/components/PlaceholderScreen';
+import {ForYouScreen, useForYouViewModel} from '@features/foryou';
+import {defaultForYouDeps} from '@core/infrastructure/features/defaultFeatureDeps';
 
 export default function ForYouRoute() {
-  return (
-    <PlaceholderScreen
-      title="For You"
-      subtitle="Personalized feed — Phase 8"
-    />
-  );
+  const viewModel = useForYouViewModel(defaultForYouDeps());
+  return <ForYouScreen viewModel={viewModel} />;
 }

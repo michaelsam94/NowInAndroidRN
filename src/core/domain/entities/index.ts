@@ -8,6 +8,7 @@ export type {SearchResult} from './SearchResult';
 export {ThemeBrand} from './ThemeBrand';
 export type {Topic} from './Topic';
 export type {UserData} from './UserData';
+export {emptyUserData} from './emptyUserData';
 export {
   mapToUserNewsResource,
   mapToUserNewsResources,

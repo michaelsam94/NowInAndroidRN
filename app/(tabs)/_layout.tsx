@@ -3,6 +3,7 @@ import {Tabs, useRouter} from 'expo-router';
 import React from 'react';
 import {Pressable, View} from 'react-native';
 
+import {NiaAppShell} from '@core/ui/shell/NiaAppShell';
 import {TabUnreadBadge} from '@core/ui/components/TabUnreadBadge';
 import {useAdaptiveLayout} from '@core/ui/layout/useAdaptiveLayout';
 import {useNiaTheme} from '@core/ui/theme/ThemeContext';
@@ -39,6 +40,7 @@ export default function TabLayout() {
   const unreadInterests = useAppStore(state => state.unreadInterests);
 
   return (
+    <NiaAppShell>
     <Tabs
       screenOptions={{
         headerStyle: {backgroundColor: colors.surface},
@@ -127,5 +129,6 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
+    </NiaAppShell>
   );
 }

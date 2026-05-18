@@ -1,10 +1,7 @@
-import {PlaceholderScreen} from '@core/ui/components/PlaceholderScreen';
+import {BookmarksScreen, useBookmarksViewModel} from '@features/bookmarks';
+import {defaultBookmarksDeps} from '@core/infrastructure/features/defaultFeatureDeps';
 
 export default function BookmarksRoute() {
-  return (
-    <PlaceholderScreen
-      title="Saved"
-      subtitle="Bookmarked articles — Phase 8"
-    />
-  );
+  const viewModel = useBookmarksViewModel(defaultBookmarksDeps());
+  return <BookmarksScreen viewModel={viewModel} />;
 }

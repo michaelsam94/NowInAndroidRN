@@ -51,7 +51,7 @@
 | **5** | Data layer (TDD) | WatermelonDB, MMKV, repositories | ✅ |
 | **6** | Domain layer (TDD) | Entities, use cases, contracts | ✅ |
 | **7** | Shared UI (TDD) | Cards, dialogs, snackbar, etc. | ✅ |
-| **8** | Feature screens (TDD) | For You → Bookmarks → … → Settings | ⬜ |
+| **8** | Feature screens (TDD) | For You → Bookmarks → … → Settings | ✅ |
 | **9** | Native bridging | Push, deep links, sync, NetInfo, Share | ⬜ |
 | **10** | E2E (Maestro) | `e2e/flows/*.yaml` | ⬜ |
 | **11** | CI/CD & flavors | GitHub Actions + EAS demo/prod | ⬜ |

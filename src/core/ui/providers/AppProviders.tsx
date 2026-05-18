@@ -2,7 +2,9 @@ import {QueryClientProvider} from '@tanstack/react-query';
 import React, {useEffect, useState} from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
-import {bootstrapAppData} from '@core/infrastructure/data/createAppRepositories';
+import {onceObservable} from '@core/domain';
+import {appRepositories, bootstrapAppData} from '@core/infrastructure/data/createAppRepositories';
+import {useAppStore} from '@store/index';
 import {createAppQueryClient} from '@core/infrastructure/query/queryClient';
 import {NiaThemeProvider} from '@core/ui/theme/ThemeContext';
 
@@ -22,6 +24,13 @@ export function AppProviders({children}: {children: React.ReactNode}) {
     let cancelled = false;
 
     bootstrapAppData()
+      .then(async () => {
+        const userData = await onceObservable(appRepositories.userData.userData);
+        const store = useAppStore.getState();
+        store.setThemeBrand(userData.themeBrand);
+        store.setDarkThemeConfig(userData.darkThemeConfig);
+        store.setUseDynamicColor(userData.useDynamicColor);
+      })
       .catch(() => undefined)
       .finally(() => {
         if (!cancelled) {

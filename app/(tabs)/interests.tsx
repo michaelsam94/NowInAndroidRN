@@ -1,17 +1,7 @@
-import {PlaceholderScreen} from '@core/ui/components/PlaceholderScreen';
-import {useAdaptiveLayout} from '@core/ui/layout/useAdaptiveLayout';
+import {InterestsScreen, useInterestsViewModel} from '@features/interests';
+import {defaultInterestsDeps} from '@core/infrastructure/features/defaultFeatureDeps';
 
 export default function InterestsRoute() {
-  const {showTwoPane} = useAdaptiveLayout();
-
-  return (
-    <PlaceholderScreen
-      title="Interests"
-      subtitle={
-        showTwoPane
-          ? 'List–detail layout active (≥840dp) — Phase 8'
-          : 'Follow topics — Phase 8'
-      }
-    />
-  );
+  const viewModel = useInterestsViewModel(defaultInterestsDeps());
+  return <InterestsScreen viewModel={viewModel} />;
 }

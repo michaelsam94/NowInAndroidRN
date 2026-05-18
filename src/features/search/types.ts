@@ -3,6 +3,7 @@ import type {
   GetSearchContentsUseCase,
   RecentSearchQuery,
   RecentSearchRepository,
+  SearchContentsRepository,
   UserDataRepository,
   UserSearchResult,
 } from '@core/domain';
@@ -19,6 +20,7 @@ export interface SearchUiState {
 export interface SearchViewModelDeps {
   readonly getSearchContents: GetSearchContentsUseCase;
   readonly getRecentSearchQueries: GetRecentSearchQueriesUseCase;
+  readonly searchContentsRepository: SearchContentsRepository;
   readonly recentSearchRepository: RecentSearchRepository;
   readonly userDataRepository: UserDataRepository;
 }
