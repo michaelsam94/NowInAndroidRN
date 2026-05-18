@@ -1,0 +1,49 @@
+appId: com.nowinandroidrn
+---
+- launchApp:
+    clearState: true
+- runFlow: subflows/complete-onboarding.yaml
+- extendedWaitUntil:
+    visible:
+      id: foryou:feed
+    timeout: 15000
+# Bookmark two articles from For You.
+- scrollUntilVisible:
+    element:
+      id: newsResourceCard:1
+    direction: DOWN
+    timeout: 10000
+- tapOn:
+    id: news-resource-bookmark
+- tapOn:
+    id: bookmarkNote:skip
+- scrollUntilVisible:
+    element:
+      id: newsResourceCard:2
+    direction: DOWN
+    timeout: 10000
+- tapOn:
+    id: news-resource-bookmark
+- tapOn:
+    id: bookmarkNote:skip
+- tapOn: Saved
+- extendedWaitUntil:
+    visible:
+      id: bookmarks:feed
+    timeout: 10000
+- longPressOn:
+    id: newsResourceCard:1
+- assertVisible:
+    id: bookmarks:bulk-remove
+- tapOn:
+    id: bookmarks:bulk-remove
+- assertVisible:
+    id: bookmarks:undo
+- tapOn:
+    id: bookmarks:undo
+- extendedWaitUntil:
+    visible:
+      id: newsResourceCard:1
+    timeout: 10000
+- assertVisible:
+    id: newsResourceCard:2

@@ -1,0 +1,16 @@
+appId: com.nowinandroidrn
+---
+# Skips onboarding when present (fresh install / clearState).
+- runFlow:
+    when:
+      visible:
+        id: foryou:onboarding
+    commands:
+      - tapOn:
+          id: topicTag:1
+      - tapOn:
+          id: foryou:onboarding-done
+      - extendedWaitUntil:
+          notVisible:
+            id: foryou:onboarding
+          timeout: 10000

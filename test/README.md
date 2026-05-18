@@ -9,7 +9,7 @@
 | MSW | `test/msw/` | `handlers.ts`, `server.ts` |
 | WatermelonDB | `test/watermelon/` | `createTestDatabase.ts` |
 | MMKV stand-in | `test/mmkv/` | `InMemoryPreferencesStore.ts` |
-| E2E (Phase 10) | `e2e/flows/*.yaml` | Maestro scripts |
+| E2E (Phase 10) | `e2e/flows/*.yaml` | Maestro — `npm run e2e` (see `e2e/README.md`) |
 
 ## Commands
 

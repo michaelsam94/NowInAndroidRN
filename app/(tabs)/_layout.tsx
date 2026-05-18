@@ -25,6 +25,7 @@ function HeaderIconButton({
       onPress={onPress}
       accessibilityRole="button"
       accessibilityLabel={label}
+      testID={`nav:${label.toLowerCase()}`}
       className="mr-3 p-1">
       <Ionicons name={icon} size={24} color={colors.onSurface} />
     </Pressable>

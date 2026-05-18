@@ -1,0 +1,35 @@
+appId: com.nowinandroidrn
+---
+- launchApp:
+    clearState: true
+- runFlow: subflows/complete-onboarding.yaml
+- tapOn:
+    id: nav:search
+- extendedWaitUntil:
+    visible:
+      id: search:input
+    timeout: 10000
+- tapOn:
+    id: search:input
+- inputText: Compose
+- pressKey: Enter
+- extendedWaitUntil:
+    visible:
+      id: search:results
+    timeout: 15000
+- scrollUntilVisible:
+    element:
+      id: news-resource-bookmark
+    direction: DOWN
+    timeout: 10000
+- tapOn:
+    id: news-resource-bookmark
+- tapOn:
+    text: For You
+- tapOn: Saved
+- extendedWaitUntil:
+    visible:
+      id: bookmarks:feed
+    timeout: 10000
+- assertVisible:
+    id: bookmarks:feed

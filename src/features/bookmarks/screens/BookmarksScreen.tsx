@@ -43,7 +43,10 @@ export function BookmarksScreen({viewModel: vm}: BookmarksScreenProps) {
       {vm.showUndo ? (
         <View className="flex-row items-center justify-between bg-opacity-90 px-4 py-2">
           <Text style={{color: colors.onSurface}}>Bookmark removed</Text>
-          <Pressable accessibilityRole="button" onPress={vm.onUndo}>
+          <Pressable
+            accessibilityRole="button"
+            testID="bookmarks:undo"
+            onPress={vm.onUndo}>
             <Text style={{color: colors.primary}}>Undo</Text>
           </Pressable>
         </View>

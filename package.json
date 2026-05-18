@@ -11,6 +11,8 @@
     "test": "jest --forceExit",
     "test:watch": "jest --watch",
     "test:ci": "jest --ci --coverage --maxWorkers=2",
+    "e2e": "maestro test e2e/flows --config e2e/config.yaml",
+    "e2e:flow": "maestro test --config e2e/config.yaml",
     "prebuild": "expo prebuild"
   },
   "dependencies": {
