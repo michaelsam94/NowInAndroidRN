@@ -26,4 +26,9 @@ export const uiStrings = {
   emptyStateDefaultTitle: 'Nothing here yet',
   emptyStateDefaultDescription: 'Check back later for new content.',
   selectItem: 'Select item',
+  bookmarksSelectedCount: (count: number) =>
+    count === 1 ? '1 selected' : `${count} selected`,
+  bookmarksCancel: 'Cancel',
+  bookmarksRemove: 'Remove',
+  bookmarksSelectAll: 'Select all',
 } as const;

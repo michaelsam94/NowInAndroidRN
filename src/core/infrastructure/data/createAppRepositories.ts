@@ -6,7 +6,7 @@ import {
   DefaultRecentSearchRepository,
   DefaultSearchContentsRepository,
   DemoAssetDataSource,
-  InMemoryLocalDataSource,
+  MmkvCachedLocalDataSource,
   MmkvSynchronizer,
   NiaApiDataSource,
   OfflineFirstNewsRepository,
@@ -17,20 +17,25 @@ import {
   type KeyValueStorage,
   type NiaNetworkDataSource,
 } from '@core/data';
+import {niaLog} from '@core/ui/diagnostics/logger';
 
 function createNetworkDataSource(): NiaNetworkDataSource {
   const extra = Constants.expoConfig?.extra as
     | {flavor?: string; apiBase?: string}
     | undefined;
 
-  if (
-    extra?.flavor === 'prod' &&
-    typeof extra.apiBase === 'string' &&
-    extra.apiBase.length > 0
-  ) {
-    return new NiaApiDataSource(extra.apiBase);
+  const apiBase =
+    (typeof extra?.apiBase === 'string' ? extra.apiBase : '') ||
+    (typeof process.env.EXPO_PUBLIC_API_BASE === 'string'
+      ? process.env.EXPO_PUBLIC_API_BASE
+      : '');
+
+  if (apiBase.length > 0) {
+    niaLog.info('Using NIA API', {apiBase});
+    return new NiaApiDataSource(apiBase);
   }
 
+  niaLog.info('Using demo bundled JSON data source');
   return new DemoAssetDataSource();
 }
 
@@ -43,7 +48,7 @@ const keyValueStorage: KeyValueStorage = {
   },
 };
 
-const localDataSource = new InMemoryLocalDataSource();
+const localDataSource = new MmkvCachedLocalDataSource(keyValueStorage);
 const networkDataSource = createNetworkDataSource();
 const userPreferences = new UserPreferencesDataSource(keyValueStorage);
 const synchronizer = new MmkvSynchronizer(keyValueStorage);
@@ -71,12 +76,17 @@ let bootstrapPromise: Promise<void> | null = null;
 
 export function bootstrapAppData(): Promise<void> {
   if (bootstrapPromise === null) {
-    bootstrapPromise = seedDatabaseIfEmpty(
-      localDataSource,
-      topicsRepository,
-      newsRepository,
-      synchronizer,
-    );
+    bootstrapPromise = (async () => {
+      await seedDatabaseIfEmpty(
+        localDataSource,
+        topicsRepository,
+        newsRepository,
+        synchronizer,
+        userDataRepository,
+      );
+      const isEmpty = await localDataSource.isEmpty();
+      niaLog.info('Bootstrap data state', {isEmpty});
+    })();
   }
   return bootstrapPromise;
 }

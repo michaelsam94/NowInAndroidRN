@@ -1,4 +1,5 @@
 export {InMemoryLocalDataSource} from './datasources/local/InMemoryLocalDataSource';
+export {MmkvCachedLocalDataSource} from './datasources/local/MmkvCachedLocalDataSource';
 export type {LocalDataSource} from './datasources/local/LocalDataSource';
 export type {KeyValueStorage} from './datasources/mmkv/UserPreferencesDataSource';
 export {UserPreferencesDataSource} from './datasources/mmkv/UserPreferencesDataSource';
@@ -12,5 +13,9 @@ export {DefaultSearchContentsRepository} from './repositories/DefaultSearchConte
 export {OfflineFirstNewsRepository} from './repositories/OfflineFirstNewsRepository';
 export {OfflineFirstTopicsRepository} from './repositories/OfflineFirstTopicsRepository';
 export {OfflineFirstUserDataRepository} from './repositories/OfflineFirstUserDataRepository';
-export {seedDatabaseIfEmpty} from './seed/seedDatabase';
+export {
+  DEFAULT_FOLLOWED_TOPIC_IDS,
+  seedDatabaseIfEmpty,
+} from './seed/seedDatabase';
+export {resetSyncVersions} from './sync/resetSyncVersions';
 export {MmkvSynchronizer} from './sync/MmkvSynchronizer';

@@ -116,4 +116,12 @@ export class InMemoryLocalDataSource implements LocalDataSource {
   async isEmpty(): Promise<boolean> {
     return this.topics.length === 0 && this.newsResources.length === 0;
   }
+
+  getTopicsSnapshot(): readonly Topic[] {
+    return this.topics;
+  }
+
+  getNewsResourcesSnapshot(): readonly NewsResource[] {
+    return this.newsResources;
+  }
 }

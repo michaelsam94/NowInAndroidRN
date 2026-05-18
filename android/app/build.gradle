@@ -117,3 +117,26 @@ dependencies {
         implementation jscFlavor
     }
 }
+
+// macOS may create AppleDouble (._*) files on external volumes; AGP treats them as invalid resources.
+tasks.register('stripAppleDoubleFiles') {
+    doLast {
+        def buildRoot = layout.buildDirectory.get().asFile
+        if (buildRoot.exists()) {
+            buildRoot.eachFileRecurse { f ->
+                if (f.name.startsWith('._')) {
+                    f.delete()
+                }
+            }
+        }
+    }
+}
+
+afterEvaluate {
+    tasks.named('stripAppleDoubleFiles').configure {
+        dependsOn(tasks.named('packageDebugResources'))
+    }
+    tasks.matching { it.name == 'parseDebugLocalResources' }.configureEach {
+        dependsOn(tasks.named('stripAppleDoubleFiles'))
+    }
+}

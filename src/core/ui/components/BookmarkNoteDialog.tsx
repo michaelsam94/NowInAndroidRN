@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Modal,
   Pressable,
@@ -25,6 +25,13 @@ export function BookmarkNoteDialog({
 }: BookmarkNoteDialogProps) {
   const {colors} = useNiaTheme();
   const [noteText, setNoteText] = useState('');
+
+  useEffect(() => {
+    if (visible) {
+      setNoteText('');
+    }
+  }, [visible]);
+
   const charactersRemaining = BOOKMARK_NOTE_MAX_LENGTH - noteText.length;
 
   return (

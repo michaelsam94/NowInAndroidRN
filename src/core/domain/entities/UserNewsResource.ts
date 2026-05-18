@@ -22,12 +22,18 @@ export function mapToUserNewsResource(
   newsResource: NewsResource,
   userData: UserData,
 ): UserNewsResource {
-  const followableTopics: FollowableTopic[] = newsResource.topics.map(
-    (topic: Topic) => ({
+  const seenTopicIds = new Set<string>();
+  const followableTopics: FollowableTopic[] = [];
+  for (const topic of newsResource.topics) {
+    if (seenTopicIds.has(topic.id)) {
+      continue;
+    }
+    seenTopicIds.add(topic.id);
+    followableTopics.push({
       topic,
       isFollowed: userData.followedTopics.has(topic.id),
-    }),
-  );
+    });
+  }
 
   return {
     id: newsResource.id,

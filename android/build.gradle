@@ -19,3 +19,33 @@ buildscript {
 }
 
 apply plugin: "com.facebook.react.rootproject"
+
+// macOS may create AppleDouble (._*) files on external volumes; AGP treats them as invalid resources.
+subprojects { subproject ->
+    subproject.pluginManager.withPlugin('com.android.library') {
+        subproject.tasks.register('stripAppleDoubleFiles') {
+            doLast {
+                def buildRoot = subproject.layout.buildDirectory.get().asFile
+                if (buildRoot.exists()) {
+                    buildRoot.eachFileRecurse { f ->
+                        if (f.name.startsWith('._')) {
+                            f.delete()
+                        }
+                    }
+                }
+            }
+        }
+        subproject.afterEvaluate {
+            def strip = subproject.tasks.named('stripAppleDoubleFiles')
+            strip.configure {
+                dependsOn(subproject.tasks.matching { it.name == 'packageDebugResources' })
+            }
+            subproject.tasks.matching { it.name == 'parseDebugLocalResources' }.configureEach {
+                dependsOn(strip)
+            }
+        }
+    }
+    subproject.pluginManager.withPlugin('com.android.application') {
+        // :app configures its own stripAppleDoubleFiles task in app/build.gradle
+    }
+}

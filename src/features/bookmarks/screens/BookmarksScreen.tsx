@@ -6,6 +6,7 @@ import {
   BookmarkedNewsResourceCard,
   EmptyState,
   LoadingWheel,
+  uiStrings,
 } from '@core/ui';
 import {useNiaTheme} from '@core/ui/theme/ThemeContext';
 
@@ -21,22 +22,41 @@ export function BookmarksScreen({viewModel: vm}: BookmarksScreenProps) {
   const editingResource = uiState.feed.find(
     item => item.id === vm.editingNoteResourceId,
   );
+  const selectedCount = uiState.selectedIds.size;
+  const isRemoveEnabled = selectedCount > 0;
 
   return (
     <View className="flex-1" style={{backgroundColor: colors.surface}}>
       {uiState.selectionMode ? (
-        <View className="flex-row items-center justify-between px-4 py-2">
+        <View
+          className="flex-row items-center justify-between px-4 py-2"
+          testID="bookmarks:selection-bar">
           <Pressable
             accessibilityRole="button"
+            accessibilityLabel={uiStrings.bookmarksCancel}
             onPress={vm.onExitSelectionMode}
-            testID="bookmarks:exit-selection">
-            <Text style={{color: colors.primary}}>Cancel</Text>
+            testID="bookmarks:exit-selection"
+            className="min-w-[72px] py-1">
+            <Text style={{color: colors.primary}}>{uiStrings.bookmarksCancel}</Text>
           </Pressable>
+          <Text
+            testID="bookmarks:selected-count"
+            accessibilityRole="text"
+            accessibilityLabel={uiStrings.bookmarksSelectedCount(selectedCount)}
+            className="flex-1 text-center text-base font-medium"
+            style={{color: colors.onSurface}}>
+            {uiStrings.bookmarksSelectedCount(selectedCount)}
+          </Text>
           <Pressable
             accessibilityRole="button"
+            accessibilityLabel={uiStrings.bookmarksRemove}
+            accessibilityState={{disabled: !isRemoveEnabled}}
+            disabled={!isRemoveEnabled}
             onPress={vm.onBulkRemove}
-            testID="bookmarks:bulk-remove">
-            <Text style={{color: colors.error}}>Remove</Text>
+            testID="bookmarks:bulk-remove"
+            className="min-w-[72px] items-end py-1"
+            style={{opacity: isRemoveEnabled ? 1 : 0.38}}>
+            <Text style={{color: colors.error}}>{uiStrings.bookmarksRemove}</Text>
           </Pressable>
         </View>
       ) : null}

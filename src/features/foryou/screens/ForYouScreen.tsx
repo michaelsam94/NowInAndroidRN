@@ -24,7 +24,7 @@ export function ForYouScreen({viewModel: vm}: ForYouScreenProps) {
     return (
       <View
         className="flex-1 px-4 py-6"
-        style={{backgroundColor: colors.surface}}
+        style={{flex: 1, backgroundColor: colors.surface}}
         testID="foryou:onboarding">
         <Text
           className="mb-2 text-2xl font-semibold"
@@ -70,7 +70,9 @@ export function ForYouScreen({viewModel: vm}: ForYouScreenProps) {
   }
 
   return (
-    <View className="flex-1" style={{backgroundColor: colors.surface}}>
+    <View
+      className="flex-1"
+      style={{flex: 1, backgroundColor: colors.surface}}>
       {uiState.isSyncing ? (
         <Text
           className="px-4 py-2 text-center text-sm"

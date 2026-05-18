@@ -12,7 +12,7 @@ export function NiaAppShell({children}: NiaAppShellProps) {
   const isOffline = useAppStore(state => state.isOffline);
 
   return (
-    <View className="flex-1">
+    <View className="flex-1" style={{flex: 1}}>
       {children}
       <OfflineSnackbar visible={isOffline} />
     </View>

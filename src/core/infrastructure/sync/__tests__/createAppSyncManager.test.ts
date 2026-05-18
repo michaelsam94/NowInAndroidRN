@@ -1,8 +1,12 @@
+import {InMemoryLocalDataSource} from '@core/data';
+import {TestSynchronizer} from '../../../../../test/fakes';
+
 import {createAppSyncManager} from '../createAppSyncManager';
 
 describe('createAppSyncManager', () => {
   it('sets syncing flag while repositories sync', async () => {
     const syncingFlags: boolean[] = [];
+    const local = new InMemoryLocalDataSource();
     const repositories = {
       topics: {
         syncWith: jest.fn().mockImplementation(async () => {
@@ -20,7 +24,8 @@ describe('createAppSyncManager', () => {
 
     const manager = createAppSyncManager({
       repositories,
-      synchronizer: {},
+      synchronizer: new TestSynchronizer(),
+      local,
       setIsSyncing: isSyncing => {
         syncingFlags.push(isSyncing);
       },

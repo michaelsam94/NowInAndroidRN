@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Modal,
   Pressable,
@@ -28,7 +28,14 @@ export function BookmarkNoteEditorDialog({
   onDelete,
 }: BookmarkNoteEditorDialogProps) {
   const {colors} = useNiaTheme();
-  const [noteText, setNoteText] = useState(initialNote ?? '');
+  const [noteText, setNoteText] = useState('');
+
+  useEffect(() => {
+    if (visible) {
+      setNoteText(initialNote ?? '');
+    }
+  }, [visible, initialNote]);
+
   const charactersRemaining = BOOKMARK_NOTE_MAX_LENGTH - noteText.length;
   const hasExistingNote = (initialNote?.trim().length ?? 0) > 0;
 

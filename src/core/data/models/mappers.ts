@@ -13,13 +13,30 @@ export function mapTopicDto(dto: NetworkTopicDto): Topic {
   };
 }
 
+function uniqueTopicsById(topicIds: readonly string[], topicsById: ReadonlyMap<string, Topic>): Topic[] {
+  const seen = new Set<string>();
+  const topics: Topic[] = [];
+
+  for (const topicId of topicIds) {
+    if (seen.has(topicId)) {
+      continue;
+    }
+    const topic = topicsById.get(topicId);
+    if (topic === undefined) {
+      continue;
+    }
+    seen.add(topicId);
+    topics.push(topic);
+  }
+
+  return topics;
+}
+
 export function mapNewsResourceDto(
   dto: NetworkNewsResourceDto,
   topicsById: ReadonlyMap<string, Topic>,
 ): NewsResource {
-  const topics = dto.topics
-    .map(topicId => topicsById.get(topicId))
-    .filter((topic): topic is Topic => topic !== undefined);
+  const topics = uniqueTopicsById(dto.topics, topicsById);
 
   return {
     id: dto.id,

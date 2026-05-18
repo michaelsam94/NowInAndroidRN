@@ -7,7 +7,12 @@ import {NiaAppShell} from '@core/ui/shell/NiaAppShell';
 import {TabUnreadBadge} from '@core/ui/components/TabUnreadBadge';
 import {useAdaptiveLayout} from '@core/ui/layout/useAdaptiveLayout';
 import {useNiaTheme} from '@core/ui/theme/ThemeContext';
+import {niaLog} from '@core/ui/diagnostics/logger';
 import {useAppStore} from '@store/index';
+
+export const unstable_settings = {
+  initialRouteName: 'foryou',
+};
 
 function HeaderIconButton({
   icon,
@@ -35,6 +40,10 @@ function HeaderIconButton({
 export default function TabLayout() {
   const router = useRouter();
   const {colors} = useNiaTheme();
+
+  React.useEffect(() => {
+    niaLog.info('TabLayout mounted');
+  }, []);
   const {showNavigationRail} = useAdaptiveLayout();
   const unreadForYou = useAppStore(state => state.unreadForYou);
   const unreadBookmarks = useAppStore(state => state.unreadBookmarks);
@@ -43,6 +52,7 @@ export default function TabLayout() {
   return (
     <NiaAppShell>
     <Tabs
+      initialRouteName="foryou"
       screenOptions={{
         headerStyle: {backgroundColor: colors.surface},
         headerTintColor: colors.onSurface,

@@ -29,6 +29,7 @@ export function createAppInfrastructure(): AppInfrastructure {
     syncManager: createAppSyncManager({
       repositories: appRepositories,
       synchronizer: appRepositories.synchronizer,
+      local: appRepositories.local,
       setIsSyncing: isSyncing => {
         useAppStore.getState().setIsSyncing(isSyncing);
       },

@@ -30,12 +30,11 @@ export const useAppStore = create<RootStoreState>()(
   ),
 );
 
-export const useThemeStore = () =>
-  useAppStore(state => ({
-    themeBrand: state.themeBrand,
-    darkThemeConfig: state.darkThemeConfig,
-    useDynamicColor: state.useDynamicColor,
-    setThemeBrand: state.setThemeBrand,
-    setDarkThemeConfig: state.setDarkThemeConfig,
-    setUseDynamicColor: state.setUseDynamicColor,
-  }));
+export const useThemeStore = () => ({
+  themeBrand: useAppStore(state => state.themeBrand),
+  darkThemeConfig: useAppStore(state => state.darkThemeConfig),
+  useDynamicColor: useAppStore(state => state.useDynamicColor),
+  setThemeBrand: useAppStore(state => state.setThemeBrand),
+  setDarkThemeConfig: useAppStore(state => state.setDarkThemeConfig),
+  setUseDynamicColor: useAppStore(state => state.setUseDynamicColor),
+});
