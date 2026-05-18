@@ -2,6 +2,7 @@ import {QueryClientProvider} from '@tanstack/react-query';
 import React, {useEffect, useState} from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
+import {bootstrapAppData} from '@core/infrastructure/data/createAppRepositories';
 import {createAppQueryClient} from '@core/infrastructure/query/queryClient';
 import {NiaThemeProvider} from '@core/ui/theme/ThemeContext';
 
@@ -18,8 +19,19 @@ export function AppProviders({children}: {children: React.ReactNode}) {
   const [isAppReady, setIsAppReady] = useState(false);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsAppReady(true), 300);
-    return () => clearTimeout(timer);
+    let cancelled = false;
+
+    bootstrapAppData()
+      .catch(() => undefined)
+      .finally(() => {
+        if (!cancelled) {
+          setIsAppReady(true);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const readyContext = React.useMemo(

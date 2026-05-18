@@ -1,23 +1,54 @@
 import type {FollowableTopic} from '../../entities/FollowableTopic';
+import type {Topic} from '../../entities/Topic';
+import type {UserData} from '../../entities/UserData';
 import type {TopicsRepository} from '../../repositories/TopicsRepository';
 import type {UserDataRepository} from '../../repositories/UserDataRepository';
 import type {Observable} from '../../types/Observable';
 import type {GetFollowableTopicsUseCase} from '../GetFollowableTopicsUseCase';
-import type {TopicSortField} from '../TopicSortField';
+import {TopicSortField} from '../TopicSortField';
 
-/**
- * Phase 6 stub — intentionally incomplete (TDD RED).
- * Tests in GetFollowableTopicsUseCase.test.ts drive the real implementation.
- */
 export function createGetFollowableTopicsUseCase(
-  _topicsRepository: TopicsRepository,
-  _userDataRepository: UserDataRepository,
+  topicsRepository: TopicsRepository,
+  userDataRepository: UserDataRepository,
 ): GetFollowableTopicsUseCase {
   return {
-    invoke(_sortBy?: TopicSortField): Observable<readonly FollowableTopic[]> {
+    invoke(sortBy?: TopicSortField): Observable<readonly FollowableTopic[]> {
       return emit => {
-        emit([]);
-        return () => undefined;
+        let userData: UserData | undefined;
+        let topics: readonly Topic[] | undefined;
+
+        const tryEmit = (): void => {
+          if (userData === undefined || topics === undefined) {
+            return;
+          }
+
+          let followableTopics: FollowableTopic[] = topics.map(topic => ({
+            topic,
+            isFollowed: userData!.followedTopics.has(topic.id),
+          }));
+
+          if (sortBy === TopicSortField.Name) {
+            followableTopics = [...followableTopics].sort((left, right) =>
+              left.topic.name.localeCompare(right.topic.name),
+            );
+          }
+
+          emit(followableTopics);
+        };
+
+        const unsubscribeUser = userDataRepository.userData(value => {
+          userData = value;
+          tryEmit();
+        });
+        const unsubscribeTopics = topicsRepository.getTopics()(value => {
+          topics = value;
+          tryEmit();
+        });
+
+        return () => {
+          unsubscribeUser?.();
+          unsubscribeTopics?.();
+        };
       };
     },
   };
