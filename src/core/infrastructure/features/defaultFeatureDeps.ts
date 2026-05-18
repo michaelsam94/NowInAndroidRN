@@ -14,7 +14,9 @@ export const defaultForYouDeps = (): ForYouViewModelDeps => ({
   getFollowableTopics: appUseCases.getFollowableTopics,
   userDataRepository: appRepositories.userData,
   openNewsArticle: appInfrastructure.openNewsArticle,
-  requestNotificationPermission: appInfrastructure.requestNotificationPermission,
+  requestNotificationPermission: async () => {
+    await appInfrastructure.requestNotificationPermission();
+  },
   logAnalyticsEvent: event => {
     appInfrastructure.analytics.logEvent(event);
   },

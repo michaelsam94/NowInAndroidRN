@@ -2,8 +2,10 @@ import {
   emptyNewsResourceQuery,
   mapToUserNewsResources,
   type NewsResourceQuery,
+  type UserNewsResource,
   type UserNewsResourceRepository,
 } from '@core/domain';
+import type {Observable} from '@core/domain';
 
 import type {NewsRepository} from '@core/domain/repositories/NewsRepository';
 import type {UserDataRepository} from '@core/domain/repositories/UserDataRepository';
@@ -13,6 +15,12 @@ import {
   mapObservable,
   switchObservable,
 } from '../util/observable';
+
+const emptyUserNewsResourcesObservable: Observable<readonly UserNewsResource[]> =
+  emit => {
+    emit([]);
+    return () => undefined;
+  };
 
 export class CompositeUserNewsResourceRepository
   implements UserNewsResourceRepository
@@ -43,10 +51,7 @@ export class CompositeUserNewsResourceRepository
       ),
       followedTopics => {
         if (followedTopics.length === 0) {
-          return emit => {
-            emit([]);
-            return () => undefined;
-          };
+          return emptyUserNewsResourcesObservable;
         }
         return this.observeAll({
           filterTopicIds: new Set(followedTopics),
@@ -69,10 +74,7 @@ export class CompositeUserNewsResourceRepository
       ),
       bookmarkedIds => {
         if (bookmarkedIds.length === 0) {
-          return emit => {
-            emit([]);
-            return () => undefined;
-          };
+          return emptyUserNewsResourcesObservable;
         }
         return this.observeAll({
           filterTopicIds: null,

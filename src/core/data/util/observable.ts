@@ -53,10 +53,10 @@ export function distinctObservable<T>(
   };
 }
 
-export function switchObservable<T>(
+export function switchObservable<T, R>(
   observable: Observable<T>,
-  mapper: (value: T) => Observable<T>,
-): Observable<T> {
+  mapper: (value: T) => Observable<R>,
+): Observable<R> {
   return emit => {
     let innerUnsubscribe: Unsubscribe = () => undefined;
     const outerUnsubscribe = observable(value => {

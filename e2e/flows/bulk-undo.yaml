@@ -1,4 +1,4 @@
-appId: com.nowinandroidrn
+appId: com.nowinandroidrn.demo
 ---
 - launchApp:
     clearState: true

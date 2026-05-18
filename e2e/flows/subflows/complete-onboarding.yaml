@@ -1,4 +1,4 @@
-appId: com.nowinandroidrn
+appId: com.nowinandroidrn.demo
 ---
 # Skips onboarding when present (fresh install / clearState).
 - runFlow:

@@ -8,12 +8,17 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
     "test": "jest --forceExit",
     "test:watch": "jest --watch",
     "test:ci": "jest --ci --coverage --maxWorkers=2",
     "e2e": "maestro test e2e/flows --config e2e/config.yaml",
     "e2e:flow": "maestro test --config e2e/config.yaml",
-    "prebuild": "expo prebuild"
+    "prebuild": "expo prebuild",
+    "prebuild:demo": "EXPO_PUBLIC_FLAVOR=demo expo prebuild",
+    "prebuild:prod": "EXPO_PUBLIC_FLAVOR=prod expo prebuild",
+    "build:demo": "eas build --profile demo --platform android",
+    "build:prod": "eas build --profile prod --platform android"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",

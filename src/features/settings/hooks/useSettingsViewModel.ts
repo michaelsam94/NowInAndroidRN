@@ -1,7 +1,7 @@
 import {useCallback, useMemo} from 'react';
 import {Platform} from 'react-native';
 
-import {emptyUserData} from '@core/domain';
+import {DarkThemeConfig, emptyUserData, ThemeBrand} from '@core/domain';
 import {useObservable} from '@core/ui/hooks/useObservable';
 import {useThemeStore} from '@store/index';
 
@@ -26,7 +26,7 @@ export function useSettingsViewModel(deps: SettingsViewModelDeps): SettingsViewM
   );
 
   const onThemeBrandChange = useCallback(
-    (brand: typeof userData.themeBrand) => {
+    (brand: ThemeBrand) => {
       setStoreThemeBrand(brand);
       void deps.userDataRepository.setThemeBrand(brand);
     },
@@ -34,7 +34,7 @@ export function useSettingsViewModel(deps: SettingsViewModelDeps): SettingsViewM
   );
 
   const onDarkThemeConfigChange = useCallback(
-    (config: typeof userData.darkThemeConfig) => {
+    (config: DarkThemeConfig) => {
       setStoreDarkThemeConfig(config);
       void deps.userDataRepository.setDarkThemeConfig(config);
     },

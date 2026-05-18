@@ -1,3 +1,4 @@
 # Maestro workspace config — https://maestro.mobile.dev
-appId: com.nowinandroidrn
+# Demo flavor package (see app.config.ts). Prod E2E: set APP_ID=com.nowinandroidrn
+appId: com.nowinandroidrn.demo
 name: Now in Android RN

@@ -9,7 +9,9 @@ import type {UserPreferencesDataSource} from '../datasources/mmkv/UserPreference
 export class OfflineFirstUserDataRepository implements UserDataRepository {
   constructor(private readonly preferences: UserPreferencesDataSource) {}
 
-  readonly userData = this.preferences.userData;
+  get userData() {
+    return this.preferences.userData;
+  }
 
   setFollowedTopicIds(followedTopicIds: ReadonlySet<string>): Promise<void> {
     return this.preferences.setFollowedTopicIds(followedTopicIds);

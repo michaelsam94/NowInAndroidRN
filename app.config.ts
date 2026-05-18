@@ -1,7 +1,14 @@
 import type {ExpoConfig} from 'expo/config';
 
+const BASE_PACKAGE = 'com.nowinandroidrn';
+const flavor = process.env.EXPO_PUBLIC_FLAVOR ?? 'demo';
+const isDemo = flavor !== 'prod';
+
+const androidPackage = isDemo ? `${BASE_PACKAGE}.demo` : BASE_PACKAGE;
+const iosBundleId = isDemo ? `${BASE_PACKAGE}.demo` : BASE_PACKAGE;
+
 const config: ExpoConfig = {
-  name: 'Now in Android',
+  name: isDemo ? 'Now in Android (Demo)' : 'Now in Android',
   slug: 'now-in-android-rn',
   version: '0.0.1',
   orientation: 'portrait',
@@ -15,10 +22,10 @@ const config: ExpoConfig = {
   },
   ios: {
     supportsTablet: true,
-    bundleIdentifier: 'com.nowinandroidrn',
+    bundleIdentifier: iosBundleId,
   },
   android: {
-    package: 'com.nowinandroidrn',
+    package: androidPackage,
     edgeToEdgeEnabled: true,
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
@@ -44,8 +51,11 @@ const config: ExpoConfig = {
     typedRoutes: true,
   },
   extra: {
-    flavor: process.env.EXPO_PUBLIC_FLAVOR ?? 'demo',
+    flavor,
     apiBase: process.env.EXPO_PUBLIC_API_BASE ?? '',
+    eas: {
+      projectId: process.env.EAS_PROJECT_ID,
+    },
   },
 };
 

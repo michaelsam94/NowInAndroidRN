@@ -1,6 +1,6 @@
 import {useCallback, useMemo, useState} from 'react';
 
-import {emptyUserData, removeBookmark, type UserNewsResource} from '@core/domain';
+import {removeBookmark, type UserNewsResource} from '@core/domain';
 import {useObservable} from '@core/ui/hooks/useObservable';
 
 import type {

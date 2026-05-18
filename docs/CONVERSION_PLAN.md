@@ -54,9 +54,11 @@
 | **8** | Feature screens (TDD) | For You → Bookmarks → … → Settings | ✅ |
 | **9** | Native bridging | Push, deep links, sync, NetInfo, Share | ✅ |
 | **10** | E2E (Maestro) | `e2e/flows/*.yaml` | ✅ |
-| **11** | CI/CD & flavors | GitHub Actions + EAS demo/prod | ⬜ |
+| **11** | CI/CD & flavors | GitHub Actions + EAS demo/prod | ✅ |
 
 **Rule:** Complete each phase’s done-criteria before starting the next. User says **`continue`** to proceed after Phase 1 review.
+
+**Status:** Phases 1–11 complete. See `docs/phase-11-cicd.md` and `docs/RELEASE_CHECKLIST.md`.
 
 ---
 

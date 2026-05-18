@@ -71,6 +71,11 @@ yarn-error.log
 # testing
 /coverage
 
+# Local env (use .env.demo / .env.prod.example as templates)
+.env
+.env.local
+.env.*.local
+
 # Yarn
 .yarn/*
 !.yarn/patches

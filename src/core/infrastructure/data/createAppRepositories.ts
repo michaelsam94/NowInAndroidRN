@@ -1,3 +1,4 @@
+import Constants from 'expo-constants';
 import {MMKV} from 'react-native-mmkv';
 
 import {
@@ -7,13 +8,31 @@ import {
   DemoAssetDataSource,
   InMemoryLocalDataSource,
   MmkvSynchronizer,
+  NiaApiDataSource,
   OfflineFirstNewsRepository,
   OfflineFirstTopicsRepository,
   OfflineFirstUserDataRepository,
   UserPreferencesDataSource,
   seedDatabaseIfEmpty,
   type KeyValueStorage,
+  type NiaNetworkDataSource,
 } from '@core/data';
+
+function createNetworkDataSource(): NiaNetworkDataSource {
+  const extra = Constants.expoConfig?.extra as
+    | {flavor?: string; apiBase?: string}
+    | undefined;
+
+  if (
+    extra?.flavor === 'prod' &&
+    typeof extra.apiBase === 'string' &&
+    extra.apiBase.length > 0
+  ) {
+    return new NiaApiDataSource(extra.apiBase);
+  }
+
+  return new DemoAssetDataSource();
+}
 
 const appMmkv = new MMKV({id: 'nia-app-data'});
 
@@ -25,7 +44,7 @@ const keyValueStorage: KeyValueStorage = {
 };
 
 const localDataSource = new InMemoryLocalDataSource();
-const networkDataSource = new DemoAssetDataSource();
+const networkDataSource = createNetworkDataSource();
 const userPreferences = new UserPreferencesDataSource(keyValueStorage);
 const synchronizer = new MmkvSynchronizer(keyValueStorage);
 

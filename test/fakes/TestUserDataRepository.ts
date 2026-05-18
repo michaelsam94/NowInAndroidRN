@@ -63,8 +63,9 @@ export class TestUserDataRepository implements UserDataRepository {
       bookmarkedNewsResources.add(newsResourceId);
     } else {
       bookmarkedNewsResources.delete(newsResourceId);
-      const {[newsResourceId]: _removed, ...rest} = bookmarkNotes;
+      const {[newsResourceId]: removedNote, ...rest} = bookmarkNotes;
       bookmarkNotes = rest;
+      void removedNote;
     }
 
     this.subject.emit({

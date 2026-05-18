@@ -12,7 +12,7 @@ npm install --legacy-peer-deps
 npx expo run:android
 ```
 
-3. App id must match `e2e/config.yaml` (`com.nowinandroidrn`).
+3. App id must match `e2e/config.yaml` (`com.nowinandroidrn.demo` for demo builds).
 
 ## Run all flows
 

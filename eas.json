@@ -1,0 +1,37 @@
+{
+  "cli": {
+    "version": ">= 16.0.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "EXPO_PUBLIC_FLAVOR": "demo"
+      }
+    },
+    "demo": {
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      },
+      "ios": {
+        "simulator": false
+      },
+      "env": {
+        "EXPO_PUBLIC_FLAVOR": "demo"
+      }
+    },
+    "prod": {
+      "distribution": "store",
+      "env": {
+        "EXPO_PUBLIC_FLAVOR": "prod",
+        "EXPO_PUBLIC_API_BASE": "https://niademo.example.com"
+      }
+    }
+  },
+  "submit": {
+    "prod": {}
+  }
+}
