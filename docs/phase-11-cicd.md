@@ -17,7 +17,7 @@
 1. **lint-and-test** — `npm ci`, `lint`, `typecheck`, `test:ci`
 2. **android-demo-assemble** — demo prebuild → Gradle `assembleDebug` on Ubuntu (no emulator)
 3. **e2e-maestro** — same APK on **macOS** arm64 emulator → Maestro flows (KVM not available on Linux runners)
-4. **eas-demo-build** — `eas build --profile demo` on `main` push (steps skip when `EXPO_TOKEN` is unset; secrets are only allowed in step `if`, not job `if`)
+4. **eas-demo-build** — `eas build --profile demo` on `main` push (requires `EXPO_TOKEN` in repo secrets; GitHub forbids `secrets` in `if` conditionals)
 
 ## Local commands
 
