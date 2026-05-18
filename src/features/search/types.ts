@@ -1,4 +1,11 @@
-import type {RecentSearchQuery, UserSearchResult} from '@core/domain';
+import type {
+  GetRecentSearchQueriesUseCase,
+  GetSearchContentsUseCase,
+  RecentSearchQuery,
+  RecentSearchRepository,
+  UserDataRepository,
+  UserSearchResult,
+} from '@core/domain';
 
 export type SearchScreenState = 'Ready' | 'Loading' | 'Empty' | 'NotReady';
 
@@ -7,6 +14,13 @@ export interface SearchUiState {
   readonly query: string;
   readonly result: UserSearchResult | null;
   readonly recentQueries: readonly RecentSearchQuery[];
+}
+
+export interface SearchViewModelDeps {
+  readonly getSearchContents: GetSearchContentsUseCase;
+  readonly getRecentSearchQueries: GetRecentSearchQueriesUseCase;
+  readonly recentSearchRepository: RecentSearchRepository;
+  readonly userDataRepository: UserDataRepository;
 }
 
 export interface SearchViewModel {

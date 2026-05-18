@@ -14,3 +14,4 @@ export {
 } from './UserNewsResource';
 export type {UserNewsResource} from './UserNewsResource';
 export type {UserSearchResult} from './UserSearchResult';
+export {mapToUserSearchResult} from './UserSearchResult';

@@ -1,1 +1,5 @@
-export type {InterestsUiState, InterestsViewModel} from './types';
+export type {
+  InterestsUiState,
+  InterestsViewModel,
+  InterestsViewModelDeps,
+} from './types';

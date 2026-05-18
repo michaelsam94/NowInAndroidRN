@@ -1,1 +1,6 @@
-export type {ForYouFeedState, ForYouUiState, ForYouViewModel} from './types';
+export type {
+  ForYouFeedState,
+  ForYouUiState,
+  ForYouViewModel,
+  ForYouViewModelDeps,
+} from './types';

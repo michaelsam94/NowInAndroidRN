@@ -11,9 +11,6 @@ import {
   sampleTopics,
 } from '../../../../../test/fixtures/sampleTopics';
 
-/**
- * RED (Phase 3): fails until Phase 6 implements stream combine + sort.
- */
 describe('GetFollowableTopicsUseCase', () => {
   it('sorts topics by name when TopicSortField.Name is used', async () => {
     const userDataRepository = new TestUserDataRepository();
@@ -37,5 +34,20 @@ describe('GetFollowableTopicsUseCase', () => {
     expect(result.map(item => item.topic.name)).toEqual(['Compose', 'Kotlin']);
     expect(result.find(item => item.topic.id === sampleTopicCompose.id)
       ?.isFollowed).toBe(true);
+  });
+
+  it('preserves repository order when TopicSortField.None is used', async () => {
+    const userDataRepository = new TestUserDataRepository();
+    const topicsRepository = new TestTopicsRepository();
+    topicsRepository.setTopics(sampleTopics);
+
+    const useCase = createGetFollowableTopicsUseCase(
+      topicsRepository,
+      userDataRepository,
+    );
+
+    const result = await onceObservable(useCase.invoke(TopicSortField.None));
+
+    expect(result.map(item => item.topic.name)).toEqual(['Kotlin', 'Compose']);
   });
 });

@@ -5,3 +5,9 @@ export type {GetSearchContentsUseCase} from './GetSearchContentsUseCase';
 export {SEARCH_QUERY_MIN_LENGTH} from './GetSearchContentsUseCase';
 export type {GetUserNewsResourcesUseCase} from './GetUserNewsResourcesUseCase';
 export {TopicSortField} from './TopicSortField';
+export {
+  createGetFollowableTopicsUseCase,
+  createGetRecentSearchQueriesUseCase,
+  createGetSearchContentsUseCase,
+  createGetUserNewsResourcesUseCase,
+} from './implementations';

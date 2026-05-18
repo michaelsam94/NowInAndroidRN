@@ -1,1 +1,5 @@
-export type {SettingsUiState, SettingsViewModel} from './types';
+export type {
+  SettingsUiState,
+  SettingsViewModel,
+  SettingsViewModelDeps,
+} from './types';

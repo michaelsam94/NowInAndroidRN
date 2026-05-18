@@ -2,6 +2,8 @@ import {MMKV} from 'react-native-mmkv';
 
 import {
   CompositeUserNewsResourceRepository,
+  DefaultRecentSearchRepository,
+  DefaultSearchContentsRepository,
   DemoAssetDataSource,
   InMemoryLocalDataSource,
   MmkvSynchronizer,
@@ -41,6 +43,10 @@ const userNewsResourceRepository = new CompositeUserNewsResourceRepository(
   newsRepository,
   userDataRepository,
 );
+const searchContentsRepository = new DefaultSearchContentsRepository(
+  localDataSource,
+);
+const recentSearchRepository = new DefaultRecentSearchRepository(localDataSource);
 
 let bootstrapPromise: Promise<void> | null = null;
 
@@ -64,4 +70,6 @@ export const appRepositories = {
   news: newsRepository,
   userData: userDataRepository,
   userNewsResources: userNewsResourceRepository,
+  searchContents: searchContentsRepository,
+  recentSearch: recentSearchRepository,
 };

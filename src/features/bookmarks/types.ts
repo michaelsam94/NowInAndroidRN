@@ -1,4 +1,8 @@
-import type {UserNewsResource} from '@core/domain';
+import type {
+  GetUserNewsResourcesUseCase,
+  UserDataRepository,
+  UserNewsResource,
+} from '@core/domain';
 
 export type BookmarksFeedState = 'Loading' | 'Success' | 'Empty';
 
@@ -8,6 +12,11 @@ export interface BookmarksUiState {
   readonly selectionMode: boolean;
   readonly selectedIds: ReadonlySet<string>;
   readonly undoPayload: readonly UserNewsResource[] | null;
+}
+
+export interface BookmarksViewModelDeps {
+  readonly getUserNewsResources: GetUserNewsResourcesUseCase;
+  readonly userDataRepository: UserDataRepository;
 }
 
 export interface BookmarksViewModel {

@@ -1,1 +1,1 @@
-export type {TopicUiState, TopicViewModel} from './types';
+export type {TopicUiState, TopicViewModel, TopicViewModelDeps} from './types';
