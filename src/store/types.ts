@@ -17,4 +17,13 @@ export interface NavigationSlice {
   readonly unreadInterests: boolean;
 }
 
-export type RootStoreState = ThemeSlice & SyncSlice & NavigationSlice;
+import type {NavigationSliceActions} from './navigationSlice';
+import type {SyncSliceActions} from './syncSlice';
+import type {ThemeSliceActions} from './themeSlice';
+
+export type RootStoreState = ThemeSlice &
+  SyncSlice &
+  NavigationSlice &
+  ThemeSliceActions &
+  SyncSliceActions &
+  NavigationSliceActions;

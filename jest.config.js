@@ -1,14 +1,15 @@
 module.exports = {
-  preset: '@react-native/jest-preset',
+  preset: 'jest-expo',
   setupFilesAfterEnv: ['<rootDir>/test/setup.ts'],
   moduleNameMapper: {
     '^@core$': '<rootDir>/src/core/domain/index.ts',
     '^@core/(.*)$': '<rootDir>/src/core/$1',
     '^@features/(.*)$': '<rootDir>/src/features/$1',
     '^@store/(.*)$': '<rootDir>/src/store/$1',
+    '^msw/node$': '<rootDir>/node_modules/msw/lib/node/index.js',
   },
   transformIgnorePatterns: [
-    'node_modules/(?!(react-native|@react-native|@react-navigation|@nozbe/watermelondb)/)',
+    'node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@sentry/react-native|native-base|react-native-svg|@nozbe/watermelondb)',
   ],
   testMatch: [
     '**/__tests__/**/*.(test|spec).(ts|tsx)',
@@ -16,6 +17,7 @@ module.exports = {
   ],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
+    'app/**/*.{ts,tsx}',
     '!src/**/*.d.ts',
     '!src/**/index.ts',
   ],

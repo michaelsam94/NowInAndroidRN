@@ -47,7 +47,7 @@
 | **1** | Feature audit & mapping | `docs/phase-1-audit.md` | ✅ |
 | **2** | Clean architecture & folders | `docs/phase-2-architecture.md` + scaffold | ✅ |
 | **3** | TDD test harness | Jest/RNTL/MSW/WatermelonDB test setup | ✅ |
-| **4** | Foundation & tooling | Expo, Router, NativeWind, theme, splash | ⬜ |
+| **4** | Foundation & tooling | Expo, Router, NativeWind, theme, splash | ✅ |
 | **5** | Data layer (TDD) | WatermelonDB, MMKV, repositories | ⬜ |
 | **6** | Domain layer (TDD) | Entities, use cases, contracts | ⬜ |
 | **7** | Shared UI (TDD) | Cards, dialogs, snackbar, etc. | ⬜ |

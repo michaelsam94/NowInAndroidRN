@@ -45,7 +45,7 @@ export function onceObservable<T>(observable: Observable<T>): Promise<T> {
     let unsubscribe: Unsubscribe = () => {};
     unsubscribe =
       observable(value => {
-        queueMicrotask(() => {
+        setImmediate(() => {
           unsubscribe();
           resolve(value);
         });

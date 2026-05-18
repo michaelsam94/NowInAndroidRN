@@ -13,8 +13,9 @@
       "@features/*": ["src/features/*"],
       "@store/*": ["src/store/*"]
     },
-    "types": ["jest"]
+    "types": ["jest", "node"],
+    "lib": ["ES2022"]
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["app/**/*.ts", "app/**/*.tsx", "src/**/*.ts", "src/**/*.tsx", "test/**/*.ts", "__tests__/**/*.ts", "__tests__/**/*.tsx", "*.ts", "nativewind-env.d.ts"],
   "exclude": ["**/node_modules", "**/Pods", "android", "ios"]
 }

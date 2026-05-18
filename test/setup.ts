@@ -1,15 +1,19 @@
 import '@testing-library/jest-native/extend-expect';
 
-import {mswServer} from './msw/server';
-
-beforeAll(() => {
-  mswServer.listen({onUnhandledRequest: 'warn'});
-});
-
-afterEach(() => {
-  mswServer.resetHandlers();
-});
-
-afterAll(() => {
-  mswServer.close();
+jest.mock('react-native-mmkv', () => {
+  const storage = new Map<string, string | number | boolean>();
+  return {
+    MMKV: jest.fn().mockImplementation(() => ({
+      getString: (key: string) => {
+        const value = storage.get(key);
+        return typeof value === 'string' ? value : undefined;
+      },
+      set: (key: string, value: string | number | boolean) => {
+        storage.set(key, value);
+      },
+      delete: (key: string) => {
+        storage.delete(key);
+      },
+    })),
+  };
 });

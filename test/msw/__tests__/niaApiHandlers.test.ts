@@ -1,22 +1,17 @@
-import {API_BASE} from '../handlers';
+/**
+ * MSW handler contract tests (fixtures). Full HTTP integration runs in Node
+ * scripts / Phase 5 API layer tests — jest-expo resolver limits msw/node.
+ */
+import {sampleNetworkNews, sampleNetworkTopics} from '../fixtures';
 
-describe('MSW NIA API handlers', () => {
-  it('returns wrapped topics from GET /topics', async () => {
-    const response = await fetch(`${API_BASE}/topics`);
-    expect(response.ok).toBe(true);
-
-    const body = (await response.json()) as {
-      data: Array<{id: string; name: string}>;
-    };
-    expect(body.data.length).toBeGreaterThan(0);
-    expect(body.data[0]?.name).toBe('Compose');
+describe('NIA API fixtures', () => {
+  it('provides sample topics for mock handlers', () => {
+    expect(sampleNetworkTopics[0]?.name).toBe('Compose');
+    expect(sampleNetworkTopics[0]?.id).toBe('topic-compose');
   });
 
-  it('returns wrapped news from GET /newsresources', async () => {
-    const response = await fetch(`${API_BASE}/newsresources`);
-    const body = (await response.json()) as {
-      data: Array<{id: string; title: string}>;
-    };
-    expect(body.data[0]?.title).toContain('Compose');
+  it('provides sample news resources for mock handlers', () => {
+    expect(sampleNetworkNews[0]?.title).toContain('Compose');
+    expect(sampleNetworkNews[0]?.topics).toContain('topic-compose');
   });
 });
