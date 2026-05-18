@@ -1,3 +1,4 @@
+import {useRouter} from 'expo-router';
 import React from 'react';
 import {Platform, Pressable, ScrollView, Switch, Text, View} from 'react-native';
 
@@ -58,6 +59,7 @@ interface SettingsScreenProps {
 }
 
 export function SettingsScreen({viewModel: vm}: SettingsScreenProps) {
+  const router = useRouter();
   const {colors, isDark} = useNiaTheme();
   const {uiState} = vm;
 
@@ -108,6 +110,17 @@ export function SettingsScreen({viewModel: vm}: SettingsScreenProps) {
           />
         </SettingsRow>
       ) : null}
+      <Pressable
+        accessibilityRole="button"
+        accessibilityLabel="Open source licenses"
+        testID="settings:licenses-link"
+        onPress={() => router.push('/licenses')}
+        className="mt-6 rounded-lg border px-4 py-3"
+        style={{borderColor: colors.outline}}>
+        <Text className="text-base" style={{color: colors.primary}}>
+          Licenses
+        </Text>
+      </Pressable>
       <Text className="mt-4 text-sm" style={{color: colors.onSurfaceVariant}}>
         Preview: {isDark ? 'Dark' : 'Light'} · {uiState.themeBrand}
         {Platform.OS === 'ios' ? ' (iOS)' : ''}

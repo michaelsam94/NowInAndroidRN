@@ -5,6 +5,7 @@ import type {SearchViewModelDeps} from '@features/search';
 import type {SettingsViewModelDeps} from '@features/settings';
 import type {TopicViewModelDeps} from '@features/topic';
 
+import {appInfrastructure} from '../createAppInfrastructure';
 import {appRepositories} from '../data/createAppRepositories';
 import {appUseCases} from '../domain/createAppUseCases';
 
@@ -12,11 +13,18 @@ export const defaultForYouDeps = (): ForYouViewModelDeps => ({
   getUserNewsResources: appUseCases.getUserNewsResources,
   getFollowableTopics: appUseCases.getFollowableTopics,
   userDataRepository: appRepositories.userData,
+  openNewsArticle: appInfrastructure.openNewsArticle,
+  requestNotificationPermission: appInfrastructure.requestNotificationPermission,
+  logAnalyticsEvent: event => {
+    appInfrastructure.analytics.logEvent(event);
+  },
 });
 
 export const defaultBookmarksDeps = (): BookmarksViewModelDeps => ({
   getUserNewsResources: appUseCases.getUserNewsResources,
   userDataRepository: appRepositories.userData,
+  openNewsArticle: appInfrastructure.openNewsArticle,
+  shareNewsArticle: appInfrastructure.shareNewsArticle,
 });
 
 export const defaultInterestsDeps = (): InterestsViewModelDeps => ({

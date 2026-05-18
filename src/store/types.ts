@@ -17,13 +17,27 @@ export interface NavigationSlice {
   readonly unreadInterests: boolean;
 }
 
+export interface NetworkSlice {
+  readonly isOffline: boolean;
+}
+
+export interface DeepLinkSlice {
+  readonly deepLinkedNewsId: string | null;
+}
+
+import type {DeepLinkSliceActions} from './deepLinkSlice';
 import type {NavigationSliceActions} from './navigationSlice';
+import type {NetworkSliceActions} from './networkSlice';
 import type {SyncSliceActions} from './syncSlice';
 import type {ThemeSliceActions} from './themeSlice';
 
 export type RootStoreState = ThemeSlice &
   SyncSlice &
   NavigationSlice &
+  NetworkSlice &
+  DeepLinkSlice &
   ThemeSliceActions &
   SyncSliceActions &
-  NavigationSliceActions;
+  NavigationSliceActions &
+  NetworkSliceActions &
+  DeepLinkSliceActions;

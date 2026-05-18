@@ -3,6 +3,8 @@ import React, {useEffect, useState} from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import {onceObservable} from '@core/domain';
+import {useInfrastructureBootstrap} from '@core/infrastructure/bootstrap/useInfrastructureBootstrap';
+import {appInfrastructure} from '@core/infrastructure/createAppInfrastructure';
 import {appRepositories, bootstrapAppData} from '@core/infrastructure/data/createAppRepositories';
 import {useAppStore} from '@store/index';
 import {createAppQueryClient} from '@core/infrastructure/query/queryClient';
@@ -16,6 +18,11 @@ interface AppReadyContextValue {
 }
 
 const AppReadyContext = React.createContext<AppReadyContextValue | null>(null);
+
+function InfrastructureBootstrap({isAppReady}: {readonly isAppReady: boolean}) {
+  useInfrastructureBootstrap(appInfrastructure, isAppReady);
+  return null;
+}
 
 export function AppProviders({children}: {children: React.ReactNode}) {
   const [isAppReady, setIsAppReady] = useState(false);
@@ -56,6 +63,7 @@ export function AppProviders({children}: {children: React.ReactNode}) {
       <SafeAreaProvider>
         <NiaThemeProvider>
           <AppReadyContext.Provider value={readyContext}>
+            <InfrastructureBootstrap isAppReady={isAppReady} />
             {children}
           </AppReadyContext.Provider>
         </NiaThemeProvider>

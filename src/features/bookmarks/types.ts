@@ -17,6 +17,8 @@ export interface BookmarksUiState {
 export interface BookmarksViewModelDeps {
   readonly getUserNewsResources: GetUserNewsResourcesUseCase;
   readonly userDataRepository: UserDataRepository;
+  readonly openNewsArticle: (url: string) => Promise<void>;
+  readonly shareNewsArticle: (title: string, url: string) => Promise<void>;
 }
 
 export interface BookmarksViewModel {
@@ -30,4 +32,5 @@ export interface BookmarksViewModel {
   onUndo(): void;
   onExitSelectionMode(): void;
   onShareTitle(newsResource: UserNewsResource): void;
+  onOpenArticle(newsResource: UserNewsResource): void;
 }

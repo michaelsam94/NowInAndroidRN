@@ -6,19 +6,15 @@ import {useAppStore} from '@store/index';
 
 interface NiaAppShellProps {
   readonly children: React.ReactNode;
-  readonly showOfflineSnackbar?: boolean;
 }
 
-export function NiaAppShell({
-  children,
-  showOfflineSnackbar = false,
-}: NiaAppShellProps) {
-  const isSyncing = useAppStore(state => state.isSyncing);
+export function NiaAppShell({children}: NiaAppShellProps) {
+  const isOffline = useAppStore(state => state.isOffline);
 
   return (
     <View className="flex-1">
       {children}
-      <OfflineSnackbar visible={showOfflineSnackbar || isSyncing} />
+      <OfflineSnackbar visible={isOffline} />
     </View>
   );
 }

@@ -22,8 +22,9 @@ export interface ForYouViewModelExtended extends ForYouViewModel {
 
 export function useForYouViewModel(deps: ForYouViewModelDeps): ForYouViewModelExtended {
   const isSyncing = useAppStore(state => state.isSyncing);
+  const deepLinkedNewsId = useAppStore(state => state.deepLinkedNewsId);
+  const setDeepLinkedNewsId = useAppStore(state => state.setDeepLinkedNewsId);
   const [pendingBookmarkId, setPendingBookmarkId] = useState<string | null>(null);
-  const [deepLinkedNewsId, setDeepLinkedNewsId] = useState<string | null>(null);
 
   const userData = useObservable(deps.userDataRepository.userData, emptyUserData);
   const feedObservable = useMemo(
@@ -50,6 +51,15 @@ export function useForYouViewModel(deps: ForYouViewModelDeps): ForYouViewModelEx
     [feed, feedState, userData.shouldHideOnboarding, isSyncing, deepLinkedNewsId],
   );
 
+  const clearDeepLinkIfMatches = useCallback(
+    (newsResourceId: string) => {
+      if (newsResourceId === deepLinkedNewsId) {
+        setDeepLinkedNewsId(null);
+      }
+    },
+    [deepLinkedNewsId, setDeepLinkedNewsId],
+  );
+
   const onTopicFollowClick = useCallback(
     (topicId: string, isFollowed: boolean) => {
       void deps.userDataRepository.setTopicIdFollowed(topicId, isFollowed);
@@ -59,7 +69,8 @@ export function useForYouViewModel(deps: ForYouViewModelDeps): ForYouViewModelEx
 
   const onOnboardingDone = useCallback(() => {
     void deps.userDataRepository.setShouldHideOnboarding(true);
-  }, [deps.userDataRepository]);
+    void deps.requestNotificationPermission();
+  }, [deps]);
 
   const onBookmarkClick = useCallback(
     (newsResource: UserNewsResource) => {
@@ -72,11 +83,19 @@ export function useForYouViewModel(deps: ForYouViewModelDeps): ForYouViewModelEx
     [deps.userDataRepository],
   );
 
-  const onNewsResourceViewed = useCallback(
-    (newsResourceId: string) => {
-      void deps.userDataRepository.setNewsResourceViewed(newsResourceId, true);
+  const onNewsResourcePress = useCallback(
+    (newsResource: UserNewsResource) => {
+      if (newsResource.id === deepLinkedNewsId) {
+        deps.logAnalyticsEvent({
+          type: 'news_deep_link_opened',
+          extras: [{key: 'linkedNewsResourceId', value: newsResource.id}],
+        });
+        clearDeepLinkIfMatches(newsResource.id);
+      }
+      void deps.openNewsArticle(newsResource.url);
+      void deps.userDataRepository.setNewsResourceViewed(newsResource.id, true);
     },
-    [deps.userDataRepository],
+    [clearDeepLinkIfMatches, deepLinkedNewsId, deps],
   );
 
   const confirmPendingBookmark = useCallback(
@@ -100,9 +119,11 @@ export function useForYouViewModel(deps: ForYouViewModelDeps): ForYouViewModelEx
     onTopicFollowClick,
     onOnboardingDone,
     onBookmarkClick,
-    onNewsResourceViewed,
+    onNewsResourcePress,
     onDeepLinkConsumed: () => setDeepLinkedNewsId(null),
-    requestNotificationPermission: () => undefined,
+    requestNotificationPermission: () => {
+      void deps.requestNotificationPermission();
+    },
     pendingBookmarkId,
     onboardingTopics,
     confirmPendingBookmark,

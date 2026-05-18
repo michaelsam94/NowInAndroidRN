@@ -23,6 +23,8 @@ describe('useBookmarksViewModel', () => {
     const deps = {
       getUserNewsResources: createGetUserNewsResourcesUseCase(userNewsRepository),
       userDataRepository,
+      openNewsArticle: jest.fn().mockResolvedValue(undefined),
+      shareNewsArticle: jest.fn().mockResolvedValue(undefined),
     };
 
     const {result} = renderHook(() => useBookmarksViewModel(deps));

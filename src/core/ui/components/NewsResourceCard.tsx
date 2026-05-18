@@ -11,6 +11,7 @@ export interface NewsResourceCardProps {
   readonly userNewsResource: UserNewsResource;
   readonly isBookmarked: boolean;
   readonly hasBeenViewed: boolean;
+  readonly isHighlighted?: boolean;
   readonly onToggleBookmark: () => void;
   readonly onPress: () => void;
   readonly onTopicPress: (topicId: string) => void;
@@ -20,6 +21,7 @@ export function NewsResourceCard({
   userNewsResource,
   isBookmarked,
   hasBeenViewed,
+  isHighlighted = false,
   onToggleBookmark,
   onPress,
   onTopicPress,
@@ -33,7 +35,11 @@ export function NewsResourceCard({
       accessibilityLabel={`${userNewsResource.title}. ${uiStrings.cardTapAction}`}
       onPress={onPress}
       className="mb-3 overflow-hidden rounded-2xl"
-      style={{backgroundColor: colors.surface}}>
+      style={{
+        backgroundColor: colors.surface,
+        borderWidth: isHighlighted ? 2 : 0,
+        borderColor: isHighlighted ? colors.primary : undefined,
+      }}>
       <NewsResourceCardBody
         userNewsResource={{...userNewsResource, isSaved: isBookmarked}}
         hasBeenViewed={hasBeenViewed}

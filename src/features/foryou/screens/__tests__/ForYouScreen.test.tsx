@@ -21,7 +21,7 @@ function createMockViewModel(
     onTopicFollowClick: () => undefined,
     onOnboardingDone: () => undefined,
     onBookmarkClick: () => undefined,
-    onNewsResourceViewed: () => undefined,
+    onNewsResourcePress: () => undefined,
     onDeepLinkConsumed: () => undefined,
     requestNotificationPermission: () => undefined,
     confirmPendingBookmark: () => undefined,

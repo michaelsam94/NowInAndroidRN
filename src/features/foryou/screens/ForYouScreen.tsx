@@ -90,8 +90,9 @@ export function ForYouScreen({viewModel: vm}: ForYouScreenProps) {
               userNewsResource={item}
               isBookmarked={item.isSaved}
               hasBeenViewed={item.hasBeenViewed}
+              isHighlighted={uiState.deepLinkedNewsId === item.id}
               onToggleBookmark={() => vm.onBookmarkClick(item)}
-              onPress={() => vm.onNewsResourceViewed(item.id)}
+              onPress={() => vm.onNewsResourcePress(item)}
               onTopicPress={() => undefined}
             />
           )}

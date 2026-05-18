@@ -24,6 +24,9 @@ function createForYouDeps(
       userDataRepository,
     ),
     userDataRepository,
+    openNewsArticle: jest.fn().mockResolvedValue(undefined),
+    requestNotificationPermission: jest.fn().mockResolvedValue(undefined),
+    logAnalyticsEvent: jest.fn(),
   };
 }
 

@@ -1,7 +1,9 @@
 import {create} from 'zustand';
 import {createJSONStorage, persist} from 'zustand/middleware';
 
+import {createDeepLinkSlice} from './deepLinkSlice';
 import {createNavigationSlice} from './navigationSlice';
+import {createNetworkSlice} from './networkSlice';
 import {zustandMmkvStorage} from './mmkvStorage';
 import {createSyncSlice} from './syncSlice';
 import {createThemeSlice} from './themeSlice';
@@ -13,6 +15,8 @@ export const useAppStore = create<RootStoreState>()(
       ...createThemeSlice(...args),
       ...createSyncSlice(...args),
       ...createNavigationSlice(...args),
+      ...createNetworkSlice(...args),
+      ...createDeepLinkSlice(...args),
     }),
     {
       name: 'nia-app-store',

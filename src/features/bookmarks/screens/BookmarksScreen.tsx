@@ -66,7 +66,7 @@ export function BookmarksScreen({viewModel: vm}: BookmarksScreenProps) {
               isSelectionMode={uiState.selectionMode}
               isSelected={uiState.selectedIds.has(item.id)}
               onToggleBookmark={() => vm.onBookmarkRemove(item.id)}
-              onOpenArticle={() => undefined}
+              onOpenArticle={() => vm.onOpenArticle(item)}
               onToggleSelected={() => vm.onToggleSelection(item.id)}
               onEnterSelectionMode={() => vm.onLongPress(item.id)}
               onNoteClick={() => vm.onNoteClick(item)}

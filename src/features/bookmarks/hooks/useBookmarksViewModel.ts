@@ -128,9 +128,19 @@ export function useBookmarksViewModel(
     setSelectedIds(new Set());
   }, []);
 
-  const onShareTitle = useCallback((_newsResource: UserNewsResource) => {
-    // Phase 9: Share API
-  }, []);
+  const onShareTitle = useCallback(
+    (newsResource: UserNewsResource) => {
+      void deps.shareNewsArticle(newsResource.title, newsResource.url);
+    },
+    [deps],
+  );
+
+  const onOpenArticle = useCallback(
+    (newsResource: UserNewsResource) => {
+      void deps.openNewsArticle(newsResource.url);
+    },
+    [deps],
+  );
 
   return {
     uiState,
@@ -143,6 +153,7 @@ export function useBookmarksViewModel(
     onUndo,
     onExitSelectionMode,
     onShareTitle,
+    onOpenArticle,
     editingNoteResourceId,
     showUndo,
     dismissNoteEditor: () => setEditingNoteResourceId(null),

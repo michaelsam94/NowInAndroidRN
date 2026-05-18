@@ -1,7 +1,10 @@
-import {BookmarksScreen, useBookmarksViewModel} from '@features/bookmarks';
+import {useMemo} from 'react';
+
 import {defaultBookmarksDeps} from '@core/infrastructure/features/defaultFeatureDeps';
+import {BookmarksScreen, useBookmarksViewModel} from '@features/bookmarks';
 
 export default function BookmarksRoute() {
-  const viewModel = useBookmarksViewModel(defaultBookmarksDeps());
+  const deps = useMemo(() => defaultBookmarksDeps(), []);
+  const viewModel = useBookmarksViewModel(deps);
   return <BookmarksScreen viewModel={viewModel} />;
 }

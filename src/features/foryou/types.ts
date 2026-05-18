@@ -15,11 +15,19 @@ export interface ForYouUiState {
   readonly deepLinkedNewsId: string | null;
 }
 
-/** Dependencies injected into the Phase 8 `useForYouViewModel` hook. */
+export interface ForYouAnalyticsEvent {
+  readonly type: string;
+  readonly extras?: readonly {readonly key: string; readonly value: string}[];
+}
+
+/** Dependencies injected into the `useForYouViewModel` hook. */
 export interface ForYouViewModelDeps {
   readonly getUserNewsResources: GetUserNewsResourcesUseCase;
   readonly getFollowableTopics: GetFollowableTopicsUseCase;
   readonly userDataRepository: UserDataRepository;
+  readonly openNewsArticle: (url: string) => Promise<void>;
+  readonly requestNotificationPermission: () => Promise<void>;
+  readonly logAnalyticsEvent: (event: ForYouAnalyticsEvent) => void;
 }
 
 export interface ForYouViewModel {
@@ -27,7 +35,7 @@ export interface ForYouViewModel {
   onTopicFollowClick(topicId: string, isFollowed: boolean): void;
   onOnboardingDone(): void;
   onBookmarkClick(newsResource: UserNewsResource): void;
-  onNewsResourceViewed(newsResourceId: string): void;
+  onNewsResourcePress(newsResource: UserNewsResource): void;
   onDeepLinkConsumed(): void;
   requestNotificationPermission(): void;
 }

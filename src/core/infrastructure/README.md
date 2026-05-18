@@ -2,9 +2,12 @@
 
 | Subfolder | Android mapping |
 |-----------|-----------------|
-| `analytics/` | `core/analytics` — `AnalyticsHelper`, Firebase vs NoOp |
-| `sync/` | `sync/work` — background fetch, `isSyncing` |
-| `notifications/` | `core/notifications` — `Notifier`, deep link URIs |
-| `network/` | `ConnectivityManagerNetworkMonitor` — NetInfo wrapper |
+| `analytics/` | `AnalyticsHelper` — NoOp (demo) / Stub (prod) |
+| `sync/` | `SyncManager` — changelist sync + `isSyncing` in Zustand |
+| `notifications/` | `Notifier` (NoOp demo), deep link URIs, permission request |
+| `network/` | NetInfo `NetworkMonitor` → offline snackbar |
+| `browser/` | `expo-web-browser` article open |
+| `share/` | React Native `Share` API |
+| `bootstrap/` | Deep links, foreground sync, network subscription |
 
-Wiring into app root happens in Phase 4/9.
+Wired from `AppProviders` via `useInfrastructureBootstrap` and `defaultFeatureDeps`.

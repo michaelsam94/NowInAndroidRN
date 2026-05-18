@@ -38,6 +38,7 @@ function RootNavigation() {
           name="settings"
           options={{title: 'Settings', presentation: 'modal'}}
         />
+        <Stack.Screen name="licenses" options={{title: 'Licenses'}} />
       </Stack>
     </>
   );
