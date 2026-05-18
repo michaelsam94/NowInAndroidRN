@@ -132,10 +132,11 @@ jobs:
           cores: 2
           ram-size: 3072M
           emulator-boot-timeout: 900
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -no-metrics
           disable-animations: true
           script: |
-            set -euo pipefail
+            # android-emulator-runner invokes /bin/sh (dash); pipefail is bash-only.
+            set -eu
             cd android
             ./gradlew :app:assembleDebug :app:installDebug -PreactNativeArchitectures=x86_64 --no-daemon --build-cache
             adb wait-for-device
