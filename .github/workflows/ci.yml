@@ -58,7 +58,10 @@ jobs:
       - name: Prebuild Android (demo flavor)
         env:
           EXPO_PUBLIC_FLAVOR: demo
-        run: npx expo prebuild --platform android --no-install
+        run: |
+          npx expo prebuild --platform android --no-install
+          # Prebuild adds WebP icons but leaves legacy PNGs in a committed android/ tree.
+          find android/app/src/main/res/mipmap-* -type f \( -name 'ic_launcher.png' -o -name 'ic_launcher_round.png' \) -delete
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -98,7 +101,9 @@ jobs:
       - name: Prebuild Android (demo flavor)
         env:
           EXPO_PUBLIC_FLAVOR: demo
-        run: npx expo prebuild --platform android --no-install
+        run: |
+          npx expo prebuild --platform android --no-install
+          find android/app/src/main/res/mipmap-* -type f \( -name 'ic_launcher.png' -o -name 'ic_launcher_round.png' \) -delete
 
       - name: Setup Java
         uses: actions/setup-java@v4
