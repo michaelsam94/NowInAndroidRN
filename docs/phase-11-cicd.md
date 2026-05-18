@@ -38,4 +38,4 @@ npm run prebuild:demo # Native project with demo package id
 1. Create an access token at [expo.dev/settings/access-tokens](https://expo.dev/settings/access-tokens) → GitHub secret **`EXPO_TOKEN`**.
 2. Locally run `eas login` then `eas init` in this repo → copy the **project ID** (UUID) into GitHub secret **`EAS_PROJECT_ID`**.
 
-`app.config.ts` reads `process.env.EAS_PROJECT_ID`; CI passes it into `eas init` and `eas build`.
+`app.config.ts` sets `owner` and reads `process.env.EAS_PROJECT_ID` for `extra.eas.projectId`; CI passes the secret into `eas build` only (no `eas init` — dynamic config cannot be auto-written in CI).

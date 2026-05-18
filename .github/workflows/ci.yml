@@ -155,7 +155,7 @@ jobs:
       - name: Install dependencies
         run: npm ci --legacy-peer-deps
 
-      - name: Link EAS project
+      - name: Verify EAS secrets
         env:
           EAS_PROJECT_ID: ${{ secrets.EAS_PROJECT_ID }}
         run: |
@@ -163,7 +163,6 @@ jobs:
             echo "::error::Add repository secret EAS_PROJECT_ID. Run 'eas init' locally, then copy the project ID from expo.dev or extra.eas.projectId in app.config."
             exit 1
           fi
-          eas init --id "$EAS_PROJECT_ID" --non-interactive --force
 
       - name: Trigger EAS demo APK build
         env:

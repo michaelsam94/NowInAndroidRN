@@ -10,6 +10,7 @@ const iosBundleId = isDemo ? `${BASE_PACKAGE}.demo` : BASE_PACKAGE;
 const config: ExpoConfig = {
   name: isDemo ? 'Now in Android (Demo)' : 'Now in Android',
   slug: 'now-in-android-rn',
+  owner: process.env.EXPO_OWNER ?? 'michaelsam00',
   version: '0.0.1',
   orientation: 'portrait',
   scheme: 'nowinandroid',
@@ -54,7 +55,8 @@ const config: ExpoConfig = {
     flavor,
     apiBase: process.env.EXPO_PUBLIC_API_BASE ?? '',
     eas: {
-      projectId: process.env.EAS_PROJECT_ID,
+      projectId:
+        process.env.EAS_PROJECT_ID ?? '07f4bda3-bb1e-41f8-af22-8c0ce4db438a',
     },
   },
 };
