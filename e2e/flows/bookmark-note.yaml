@@ -17,7 +17,8 @@ appId: com.nowinandroidrn.demo
 - inputText: E2E bookmark note
 - tapOn:
     id: bookmarkNote:save
-- tapOn: Saved
+- tapOn:
+    id: tab:bookmarks
 - extendedWaitUntil:
     visible:
       id: bookmarks:feed

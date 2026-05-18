@@ -1,4 +1,5 @@
 import {useEffect, useMemo} from 'react';
+import {View} from 'react-native';
 
 import {defaultForYouDeps} from '@core/infrastructure/features/defaultFeatureDeps';
 import {niaLog} from '@core/ui/diagnostics/logger';
@@ -20,5 +21,9 @@ export default function ForYouRoute() {
     viewModel.uiState.isOnboarding,
   ]);
 
-  return <ForYouScreen viewModel={viewModel} />;
+  return (
+    <View testID="foryou:screen" style={{flex: 1}} collapsable={false}>
+      <ForYouScreen viewModel={viewModel} />
+    </View>
+  );
 }

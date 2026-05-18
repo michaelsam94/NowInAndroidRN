@@ -5,8 +5,17 @@ appId: com.nowinandroidrn.demo
     notVisible:
       id: nia:bootstrap-placeholder
     timeout: 90000
-# Tabs header appears once navigation reaches For You.
+# Index route shows briefly before router.replace('/foryou').
+- extendedWaitUntil:
+    notVisible:
+      id: nia:index-loading
+    timeout: 60000
+# React Navigation header titles are not reliable in Maestro on Android; use testIDs.
 - extendedWaitUntil:
     visible:
-      text: "Now in Android"
+      id: nia:tabs
+    timeout: 60000
+- extendedWaitUntil:
+    visible:
+      id: foryou:screen
     timeout: 60000

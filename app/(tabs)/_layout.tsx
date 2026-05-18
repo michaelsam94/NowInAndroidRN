@@ -53,6 +53,7 @@ export default function TabLayout() {
 
   return (
     <NiaAppShell>
+    <View testID="nia:tabs" style={{flex: 1}}>
     <Tabs
       initialRouteName="foryou"
       screenOptions={{
@@ -80,6 +81,7 @@ export default function TabLayout() {
         name="foryou"
         options={{
           title: 'For You',
+          tabBarButtonTestID: 'tab:foryou',
           tabBarIcon: ({color}) => (
             <View>
               <Ionicons name="calendar-outline" size={24} color={color} />
@@ -109,6 +111,7 @@ export default function TabLayout() {
         name="bookmarks"
         options={{
           title: 'Saved',
+          tabBarButtonTestID: 'tab:bookmarks',
           tabBarIcon: ({color}) => (
             <View>
               <Ionicons name="bookmark-outline" size={24} color={color} />
@@ -129,6 +132,7 @@ export default function TabLayout() {
         name="interests"
         options={{
           title: 'Interests',
+          tabBarButtonTestID: 'tab:interests',
           tabBarIcon: ({color}) => (
             <View>
               <Ionicons name="grid-outline" size={24} color={color} />
@@ -146,6 +150,7 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
+    </View>
     </NiaAppShell>
   );
 }

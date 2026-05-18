@@ -21,7 +21,8 @@ appId: com.nowinandroidrn.demo
     id: news-resource-bookmark
 - tapOn:
     id: bookmarkNote:skip
-- tapOn: Saved
+- tapOn:
+    id: tab:bookmarks
 - extendedWaitUntil:
     visible:
       id: bookmarks:feed
