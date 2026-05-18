@@ -6,6 +6,7 @@ module.exports = {
     '^@core/(.*)$': '<rootDir>/src/core/$1',
     '^@features/(.*)$': '<rootDir>/src/features/$1',
     '^@store/(.*)$': '<rootDir>/src/store/$1',
+    '^@expo/vector-icons$': '<rootDir>/test/mocks/ExpoVectorIconsMock.tsx',
     '^msw/node$': '<rootDir>/node_modules/msw/lib/node/index.js',
   },
   transformIgnorePatterns: [

@@ -1,7 +1,7 @@
 import React, {createContext, useContext, useMemo} from 'react';
 import {useColorScheme} from 'react-native';
 
-import {DarkThemeConfig} from '@core/domain';
+import {DarkThemeConfig, ThemeBrand} from '@core/domain';
 import {useThemeStore} from '@store/index';
 import {resolveThemeColors, type NiaColorScheme} from './tokens';
 
@@ -42,4 +42,23 @@ export function useNiaTheme(): ThemeContextValue {
     throw new Error('useNiaTheme must be used within NiaThemeProvider');
   }
   return context;
+}
+
+/** Stable theme wrapper for Jest (avoids Zustand persist re-render loops). */
+export function TestNiaThemeProvider({children}: {children: React.ReactNode}) {
+  const value = useMemo<ThemeContextValue>(
+    () => ({
+      colors: resolveThemeColors(
+        ThemeBrand.Default,
+        DarkThemeConfig.Light,
+        'light',
+      ),
+      isDark: false,
+    }),
+    [],
+  );
+
+  return (
+    <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+  );
 }
