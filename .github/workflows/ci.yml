@@ -134,17 +134,8 @@ jobs:
           emulator-boot-timeout: 900
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -no-metrics
           disable-animations: true
-          script: |
-            # android-emulator-runner invokes /bin/sh (dash); pipefail is bash-only.
-            set -eu
-            cd android
-            ./gradlew :app:assembleDebug :app:installDebug -PreactNativeArchitectures=x86_64 --no-daemon --build-cache
-            adb wait-for-device
-            adb shell pm list packages | grep nowinandroid
-            curl -Ls "https://get.maestro.mobile.dev" | bash
-            export PATH="$PATH:$HOME/.maestro/bin"
-            cd ..
-            maestro test e2e/flows --config e2e/config.yaml
+          # Runner executes each script line in a separate shell; use one bash file.
+          script: bash .github/scripts/run-maestro-e2e.sh
 
   eas-demo-build:
     name: EAS demo build (Android)
