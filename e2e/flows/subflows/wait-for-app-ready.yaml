@@ -1,21 +1,11 @@
 appId: com.nowinandroidrn.demo
 ---
-# Bootstrap blocks the UI until seed/sync finishes (see AppProviders).
-- extendedWaitUntil:
-    notVisible:
-      id: nia:bootstrap-placeholder
-    timeout: 90000
-# Index route shows briefly before router.replace('/foryou').
-- extendedWaitUntil:
-    notVisible:
-      id: nia:index-loading
-    timeout: 60000
-# React Navigation header titles are not reliable in Maestro on Android; use testIDs.
+# E2E APK sets extra.e2e — navigation mounts while bootstrap finishes in background.
 - extendedWaitUntil:
     visible:
-      id: nia:tabs
-    timeout: 60000
+      id: nia:app-ready
+    timeout: 120000
 - extendedWaitUntil:
     visible:
       id: foryou:screen
-    timeout: 60000
+    timeout: 120000

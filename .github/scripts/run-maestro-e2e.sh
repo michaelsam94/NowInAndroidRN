@@ -4,6 +4,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 export EXPO_PUBLIC_FLAVOR=demo
+export EXPO_PUBLIC_E2E=1
 export MAESTRO_CLI_NO_ANALYTICS=1
 
 cd "$ROOT/android"

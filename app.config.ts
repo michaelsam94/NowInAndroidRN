@@ -53,6 +53,8 @@ const config: ExpoConfig = {
   },
   extra: {
     flavor,
+    // Set EXPO_PUBLIC_E2E=1 when bundling for Maestro CI (show UI while bootstrap runs).
+    e2e: process.env.EXPO_PUBLIC_E2E === '1',
     apiBase: process.env.EXPO_PUBLIC_API_BASE ?? '',
     eas: {
       projectId:

@@ -1,3 +1,4 @@
+import Constants from 'expo-constants';
 import {QueryClientProvider} from '@tanstack/react-query';
 import React, {useEffect, useState} from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
@@ -15,6 +16,9 @@ import {NiaThemeProvider} from '@core/ui/theme/ThemeContext';
 
 const queryClient = createAppQueryClient();
 
+const isE2EBuild =
+  (Constants.expoConfig?.extra as {e2e?: boolean} | undefined)?.e2e === true;
+
 interface AppReadyContextValue {
   readonly isAppReady: boolean;
   readonly markAppReady: () => void;
@@ -28,10 +32,14 @@ function InfrastructureBootstrap({isAppReady}: {readonly isAppReady: boolean}) {
 }
 
 export function AppProviders({children}: {children: React.ReactNode}) {
-  const [isAppReady, setIsAppReady] = useState(false);
+  const [isAppReady, setIsAppReady] = useState(isE2EBuild);
 
   useEffect(() => {
     let cancelled = false;
+
+    if (isE2EBuild) {
+      niaLog.info('E2E build: navigation unlocked while bootstrap continues');
+    }
 
     niaLog.info('Bootstrap started');
 

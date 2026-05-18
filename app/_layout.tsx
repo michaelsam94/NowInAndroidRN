@@ -11,6 +11,10 @@ import {NiaErrorBoundary} from '@core/ui/diagnostics/NiaErrorBoundary';
 import {AppProviders, useAppReady} from '@core/ui/providers/AppProviders';
 import {useNiaTheme} from '@core/ui/theme/ThemeContext';
 
+export const unstable_settings = {
+  initialRouteName: '(tabs)',
+};
+
 installGlobalErrorLogging();
 SplashScreen.preventAutoHideAsync().catch(error => {
   niaLog.warn('SplashScreen.preventAutoHideAsync failed', error);
@@ -57,11 +61,13 @@ function RootNavigation() {
   }
 
   return (
-    <>
+    <View testID="nia:app-ready" style={{flex: 1}} collapsable={false}>
       <StatusBar style={isDark ? 'light' : 'dark'} />
-      <Stack screenOptions={{headerShown: false}}>
-        <Stack.Screen name="index" options={{headerShown: false}} />
+      <Stack
+        initialRouteName="(tabs)"
+        screenOptions={{headerShown: false}}>
         <Stack.Screen name="(tabs)" options={{headerShown: false}} />
+        <Stack.Screen name="index" options={{headerShown: false}} />
         <Stack.Screen
           name="search"
           options={{title: 'Search', presentation: 'card', headerShown: true}}
@@ -79,7 +85,7 @@ function RootNavigation() {
           options={{title: 'Licenses', headerShown: true}}
         />
       </Stack>
-    </>
+    </View>
   );
 }
 

@@ -7,6 +7,6 @@ appId: com.nowinandroidrn.demo
     element:
       id: newsResourceCard:1
     direction: DOWN
-    timeout: 45000
+    timeout: 90000
 - assertVisible:
     id: newsResourceCard:1

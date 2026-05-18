@@ -53,7 +53,6 @@ export default function TabLayout() {
 
   return (
     <NiaAppShell>
-    <View testID="nia:tabs" style={{flex: 1}}>
     <Tabs
       initialRouteName="foryou"
       screenOptions={{
@@ -150,7 +149,6 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
-    </View>
     </NiaAppShell>
   );
 }
