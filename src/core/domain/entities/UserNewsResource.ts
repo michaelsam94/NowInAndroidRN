@@ -1,7 +1,6 @@
 import type {FollowableTopic} from './FollowableTopic';
 import type {InstantString} from './NewsResource';
 import type {NewsResource} from './NewsResource';
-import type {Topic} from './Topic';
 import type {UserData} from './UserData';
 
 export interface UserNewsResource {
