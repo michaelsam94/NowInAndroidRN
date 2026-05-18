@@ -44,3 +44,19 @@ eas build --profile prod --platform android
 
 - [ ] Update `version` in `app.config.ts`
 - [ ] Tag release in git if distributing outside EAS
+
+## GitHub Release APK (tag push)
+
+Pushing a tag matching `v*` (e.g. `v0.0.1`) runs [`.github/workflows/release.yml`](../.github/workflows/release.yml):
+
+1. Lint + typecheck
+2. Build **demo** `assembleRelease` APK (`com.nowinandroidrn.demo`)
+3. Upload APK to a [GitHub Release](https://github.com/michaelsam94/NowInAndroidRN/releases) for that tag
+
+```bash
+# After bumping version in app.config.ts (optional; tag also sets Android versionName in CI)
+git tag v0.0.1
+git push origin v0.0.1
+```
+
+The APK uses the **debug keystore** (QA sideload). For store builds, use EAS above.
