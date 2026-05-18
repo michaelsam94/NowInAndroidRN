@@ -32,6 +32,10 @@ npm run prebuild:demo # Native project with demo package id
 
 | Secret | Used for |
 |--------|----------|
-| `EXPO_TOKEN` | EAS build job on `main` |
+| `EXPO_TOKEN` | EAS CLI authentication on `main` |
+| `EAS_PROJECT_ID` | Expo project UUID (`extra.eas.projectId`) for non-interactive builds |
 
-Create at [expo.dev/settings/access-tokens](https://expo.dev/settings/access-tokens) and add to GitHub repo **Settings → Secrets and variables → Actions** as `EXPO_TOKEN`. Without it, lint/tests/E2E still run; only the EAS cloud build job is skipped.
+1. Create an access token at [expo.dev/settings/access-tokens](https://expo.dev/settings/access-tokens) → GitHub secret **`EXPO_TOKEN`**.
+2. Locally run `eas login` then `eas init` in this repo → copy the **project ID** (UUID) into GitHub secret **`EAS_PROJECT_ID`**.
+
+`app.config.ts` reads `process.env.EAS_PROJECT_ID`; CI passes it into `eas init` and `eas build`.

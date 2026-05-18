@@ -6,8 +6,8 @@ Use this before shipping a **demo** or **prod** build via EAS.
 
 - [ ] [EAS CLI](https://docs.expo.dev/build/setup/) installed (`npm i -g eas-cli`)
 - [ ] Logged in: `eas login`
-- [ ] Project linked: `eas init` (sets `EAS_PROJECT_ID` in Expo dashboard)
-- [ ] GitHub `EXPO_TOKEN` secret configured for CI EAS job (optional)
+- [ ] Project linked: `eas init` (note the **project ID** UUID)
+- [ ] GitHub secrets for CI: `EXPO_TOKEN` and `EAS_PROJECT_ID`
 
 ## Demo APK (internal / QA)
 
