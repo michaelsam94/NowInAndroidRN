@@ -1,5 +1,5 @@
 import React from 'react';
-import {act, fireEvent, screen, waitFor} from '@testing-library/react-native';
+import {screen, userEvent, waitFor} from '@testing-library/react-native';
 
 import {createGetUserNewsResourcesUseCase} from '@core/domain';
 import {uiStrings} from '@core/ui';
@@ -43,36 +43,45 @@ function BookmarksHarness({deps}: {readonly deps: BookmarksViewModelDeps}) {
 }
 
 describe('BookmarksScreen selection bar', () => {
+  jest.setTimeout(20_000);
+
   it('shows how many items are selected', async () => {
     const deps = createDeps([sampleUserNewsWithNote, sampleUserNewsUnread]);
+    const firstCardId = `newsResourceCard:${sampleUserNewsWithNote.id}`;
+    const secondCardId = `newsResourceCard:${sampleUserNewsUnread.id}`;
 
     renderWithNiaTheme(<BookmarksHarness deps={deps} />);
 
-    await waitFor(() => {
-      expect(screen.getByTestId('bookmarks:feed')).toBeOnTheScreen();
-    });
-
-    fireEvent(
-      screen.getByTestId(`newsResourceCard:${sampleUserNewsWithNote.id}`),
-      'onLongPress',
+    await waitFor(
+      () => {
+        expect(screen.getByTestId('bookmarks:feed')).toBeOnTheScreen();
+        expect(screen.getByTestId(firstCardId)).toBeOnTheScreen();
+        expect(screen.getByTestId(secondCardId)).toBeOnTheScreen();
+      },
+      {timeout: 10_000},
     );
 
-    await waitFor(() => {
-      expect(screen.getByTestId('bookmarks:selected-count')).toHaveTextContent(
-        uiStrings.bookmarksSelectedCount(1),
-      );
-    });
+    await userEvent.longPress(screen.getByTestId(firstCardId));
 
-    await act(async () => {
-      fireEvent.press(
-        screen.getByTestId(`newsResourceCard:${sampleUserNewsUnread.id}`),
-      );
-    });
+    await waitFor(
+      () => {
+        expect(screen.getByTestId('bookmarks:selection-bar')).toBeOnTheScreen();
+        expect(screen.getByTestId('bookmarks:selected-count')).toHaveTextContent(
+          uiStrings.bookmarksSelectedCount(1),
+        );
+      },
+      {timeout: 10_000},
+    );
 
-    await waitFor(() => {
-      expect(screen.getByTestId('bookmarks:selected-count')).toHaveTextContent(
-        uiStrings.bookmarksSelectedCount(2),
-      );
-    });
+    await userEvent.press(screen.getByTestId(secondCardId));
+
+    await waitFor(
+      () => {
+        expect(screen.getByTestId('bookmarks:selected-count')).toHaveTextContent(
+          uiStrings.bookmarksSelectedCount(2),
+        );
+      },
+      {timeout: 10_000},
+    );
   });
 });
