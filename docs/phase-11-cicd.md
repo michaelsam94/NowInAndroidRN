@@ -15,8 +15,9 @@
 ## CI pipeline
 
 1. **lint-and-test** — `npm ci`, `lint`, `typecheck`, `test:ci`
-2. **e2e-maestro** — demo prebuild → Gradle debug APK → Maestro flows
-3. **eas-demo-build** — `eas build --profile demo` on `main` push (requires `EXPO_TOKEN`)
+2. **android-demo-assemble** — demo prebuild → Gradle `assembleDebug` on Ubuntu (no emulator)
+3. **e2e-maestro** — same APK on **macOS** arm64 emulator → Maestro flows (KVM not available on Linux runners)
+4. **eas-demo-build** — `eas build --profile demo` on `main` push when `EXPO_TOKEN` is set (skipped otherwise)
 
 ## Local commands
 
@@ -33,4 +34,4 @@ npm run prebuild:demo # Native project with demo package id
 |--------|----------|
 | `EXPO_TOKEN` | EAS build job on `main` |
 
-Create at [expo.dev/settings/access-tokens](https://expo.dev/settings/access-tokens) and add to GitHub repo secrets.
+Create at [expo.dev/settings/access-tokens](https://expo.dev/settings/access-tokens) and add to GitHub repo **Settings → Secrets and variables → Actions** as `EXPO_TOKEN`. Without it, lint/tests/E2E still run; only the EAS cloud build job is skipped.
