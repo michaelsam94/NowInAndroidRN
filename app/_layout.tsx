@@ -8,6 +8,7 @@ import {StatusBar} from 'expo-status-bar';
 
 import {installGlobalErrorLogging, niaLog} from '@core/ui/diagnostics/logger';
 import {NiaErrorBoundary} from '@core/ui/diagnostics/NiaErrorBoundary';
+import {isE2EBuild} from '@core/ui/e2eBuild';
 import {AppProviders, useAppReady} from '@core/ui/providers/AppProviders';
 import {useNiaTheme} from '@core/ui/theme/ThemeContext';
 
@@ -16,9 +17,11 @@ export const unstable_settings = {
 };
 
 installGlobalErrorLogging();
-SplashScreen.preventAutoHideAsync().catch(error => {
-  niaLog.warn('SplashScreen.preventAutoHideAsync failed', error);
-});
+if (!isE2EBuild) {
+  SplashScreen.preventAutoHideAsync().catch(error => {
+    niaLog.warn('SplashScreen.preventAutoHideAsync failed', error);
+  });
+}
 
 const SPLASH_BACKGROUND = '#1C1B1F';
 
@@ -49,7 +52,7 @@ function RootNavigation() {
   }, [pathname, segments, isAppReady]);
 
   useEffect(() => {
-    if (isAppReady) {
+    if (isE2EBuild || isAppReady) {
       SplashScreen.hideAsync().catch(error => {
         niaLog.warn('SplashScreen.hideAsync failed', error);
       });

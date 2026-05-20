@@ -15,7 +15,8 @@ const config: ExpoConfig = {
   orientation: 'portrait',
   scheme: 'nowinandroid',
   userInterfaceStyle: 'automatic',
-  newArchEnabled: true,
+  // Fabric can be flaky on GitHub's x86_64 emulators; disable for Maestro CI bundles.
+  newArchEnabled: process.env.EXPO_PUBLIC_E2E !== '1',
   splash: {
     image: './assets/splash-icon.png',
     resizeMode: 'contain',
@@ -53,8 +54,8 @@ const config: ExpoConfig = {
   },
   extra: {
     flavor,
-    // Set EXPO_PUBLIC_E2E=1 when bundling for Maestro CI (show UI while bootstrap runs).
-    e2e: process.env.EXPO_PUBLIC_E2E === '1',
+    // Demo + Maestro CI: show navigation while bootstrap runs (see AppProviders).
+    e2e: isDemo || process.env.EXPO_PUBLIC_E2E === '1',
     apiBase: process.env.EXPO_PUBLIC_API_BASE ?? '',
     eas: {
       projectId:

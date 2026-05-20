@@ -2,7 +2,7 @@ appId: com.nowinandroidrn.demo
 ---
 - launchApp:
     clearState: true
-- runFlow: subflows/wait-for-foryou-feed.yaml
+- runFlow: ../subflows/wait-for-foryou-feed.yaml
 - scrollUntilVisible:
     element:
       id: newsResourceCard:1

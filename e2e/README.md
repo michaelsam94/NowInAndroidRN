@@ -37,12 +37,12 @@ maestro test e2e/flows/onboarding-feed.yaml --config e2e/config.yaml
 | `search-bookmark.yaml` | Search → bookmark result → Saved tab |
 | `deeplink-highlight.yaml` | App link opens For You with article visible |
 
-Shared setup lives in `flows/subflows/complete-onboarding.yaml`.
+Shared setup lives in `e2e/subflows/` (not under `flows/` so Maestro does not run them as top-level tests).
 
 ## Tips
 
 - Flows use `launchApp.clearState: true` for a clean MMKV/onboarding state.
-- Shared setup: `subflows/wait-for-foryou-feed.yaml` waits for bootstrap, skips onboarding, and scrolls to `newsResourceCard:1` (do not tap `topicTag:1` during onboarding — bootstrap may already follow that topic).
+- Shared setup: `e2e/subflows/wait-for-foryou-feed.yaml` waits for bootstrap, skips onboarding, and scrolls to `newsResourceCard:1` (do not tap `topicTag:1` during onboarding — bootstrap may already follow that topic).
 - If taps miss, rerun on a cold emulator or increase `timeout` values.
 - Deep links require the dev build with intent filters from `app.config.ts`.
 - Maestro `deeplink-highlight` uses `nowinandroid://foryou/{id}` (not the HTTPS App Links host). Notification/production URIs still use `https://www.nowinandroid.apps.samples.google.com/foryou/...`.

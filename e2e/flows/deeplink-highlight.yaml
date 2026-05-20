@@ -5,6 +5,6 @@ appId: com.nowinandroidrn.demo
 # Custom scheme (see app.config.ts / AndroidManifest). HTTPS App Links host is for
 # production notifications; Maestro should not use www.nowinandroid.apps.samples.google.com.
 - openLink: nowinandroid://foryou/1
-- runFlow: subflows/wait-for-foryou-feed.yaml
+- runFlow: ../subflows/wait-for-foryou-feed.yaml
 - assertVisible:
     id: newsResourceCard:1

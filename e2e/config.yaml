@@ -2,3 +2,13 @@
 # Demo flavor package (see app.config.ts). Prod E2E: set APP_ID=com.nowinandroidrn
 appId: com.nowinandroidrn.demo
 name: Now in Android RN
+# One emulator: run flows sequentially (default order is non-deterministic / parallel).
+executionOrder:
+  continueOnFailure: false
+  flowsOrder:
+    - onboarding-feed
+    - bookmark-note
+    - edit-delete-note
+    - bulk-undo
+    - search-bookmark
+    - deeplink-highlight
