@@ -16,7 +16,7 @@
 
 1. **lint-and-test** — `npm ci`, `lint`, `typecheck`, `test:ci`
 2. **android-demo-assemble** — demo prebuild → Gradle `assembleDebug` on Ubuntu (no emulator)
-3. **e2e-maestro** — Ubuntu + KVM + x86_64 emulator → install debug APK → Maestro flows
+3. **e2e-maestro** — Ubuntu + KVM + x86_64 emulator → install **release** APK (embedded JS bundle + `EXPO_PUBLIC_E2E=1`) → Maestro flows
 4. **eas-demo-build** — `eas build --profile demo` on `main` push (requires `EXPO_TOKEN` in repo secrets; GitHub forbids `secrets` in `if` conditionals)
 
 ## Local commands

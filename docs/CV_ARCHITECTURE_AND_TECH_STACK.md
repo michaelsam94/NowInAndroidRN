@@ -580,7 +580,7 @@ Red → Green → Refactor across 11 documented phases (`docs/CONVERSION_PLAN.md
 | `search-bookmark.yaml` | Search → bookmark |
 | `deeplink-highlight.yaml` | HTTPS deep link → article |
 
-**CI:** Ubuntu + KVM + `assembleDebug` + install + `maestro test e2e/flows`.
+**CI:** Ubuntu + KVM + `assembleRelease` + install (debug skips JS bundle; release embeds it) + `maestro test e2e/flows`.
 
 ---
 

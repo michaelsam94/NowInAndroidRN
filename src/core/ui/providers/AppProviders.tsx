@@ -16,8 +16,10 @@ import {NiaThemeProvider} from '@core/ui/theme/ThemeContext';
 
 const queryClient = createAppQueryClient();
 
+/** CI sets EXPO_PUBLIC_E2E at bundle time; extra.e2e may be false if prebuild ran without it. */
 const isE2EBuild =
-  (Constants.expoConfig?.extra as {e2e?: boolean} | undefined)?.e2e === true;
+  (Constants.expoConfig?.extra as {e2e?: boolean} | undefined)?.e2e === true ||
+  process.env.EXPO_PUBLIC_E2E === '1';
 
 interface AppReadyContextValue {
   readonly isAppReady: boolean;

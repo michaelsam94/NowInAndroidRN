@@ -101,6 +101,7 @@ jobs:
       - name: Prebuild Android (demo flavor)
         env:
           EXPO_PUBLIC_FLAVOR: demo
+          EXPO_PUBLIC_E2E: 1
         run: |
           npx expo prebuild --platform android --no-install
           find android/app/src/main/res/mipmap-* -type f \( -name 'ic_launcher.png' -o -name 'ic_launcher_round.png' \) -delete

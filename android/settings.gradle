@@ -42,6 +42,6 @@ apply from: new File(
 
 useExpoModules()
 
-rootProject.name = 'NowInAndroidRN'
+rootProject.name = 'Now in Android (Demo)'
 include ':app'
 includeBuild('../node_modules/@react-native/gradle-plugin')
