@@ -15,8 +15,8 @@ const config: ExpoConfig = {
   orientation: 'portrait',
   scheme: 'nowinandroid',
   userInterfaceStyle: 'automatic',
-  // Fabric can be flaky on GitHub's x86_64 emulators; disable for Maestro CI bundles.
-  newArchEnabled: process.env.EXPO_PUBLIC_E2E !== '1',
+  // Reanimated 4+ requires New Architecture (see assertNewArchitectureEnabledTask).
+  newArchEnabled: true,
   splash: {
     image: './assets/splash-icon.png',
     resizeMode: 'contain',
