@@ -10,6 +10,12 @@ appId: com.nowinandroidrn.demo
     timeout: 10000
 - tapOn:
     id: news-resource-bookmark
+    below:
+      id: newsResourceCard:1
+- extendedWaitUntil:
+    visible:
+      id: bookmarkNote:skip
+    timeout: 5000
 - tapOn:
     id: bookmarkNote:skip
 - scrollUntilVisible:
@@ -19,6 +25,12 @@ appId: com.nowinandroidrn.demo
     timeout: 10000
 - tapOn:
     id: news-resource-bookmark
+    below:
+      id: newsResourceCard:2
+- extendedWaitUntil:
+    visible:
+      id: bookmarkNote:skip
+    timeout: 5000
 - tapOn:
     id: bookmarkNote:skip
 - tapOn:

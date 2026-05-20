@@ -45,4 +45,5 @@ Shared setup lives in `flows/subflows/complete-onboarding.yaml`.
 - Shared setup: `subflows/wait-for-foryou-feed.yaml` waits for bootstrap, skips onboarding, and scrolls to `newsResourceCard:1` (do not tap `topicTag:1` during onboarding — bootstrap may already follow that topic).
 - If taps miss, rerun on a cold emulator or increase `timeout` values.
 - Deep links require the dev build with intent filters from `app.config.ts`.
+- Maestro `deeplink-highlight` uses `nowinandroid://foryou/{id}` (not the HTTPS App Links host). Notification/production URIs still use `https://www.nowinandroid.apps.samples.google.com/foryou/...`.
 - CI builds the **demo** package (`com.nowinandroidrn.demo`); run `EXPO_PUBLIC_FLAVOR=demo npx expo prebuild` before local `expo run:android` for Maestro.

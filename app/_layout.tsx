@@ -3,7 +3,7 @@ import '../global.css';
 import {Stack, usePathname, useSegments} from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import {useEffect} from 'react';
-import {Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {StatusBar} from 'expo-status-bar';
 
 import {installGlobalErrorLogging, niaLog} from '@core/ui/diagnostics/logger';
@@ -32,7 +32,7 @@ function BootstrapPlaceholder({message}: {readonly message: string}) {
         justifyContent: 'center',
         padding: 24,
       }}
-      testID="nia:bootstrap-placeholder">
+      accessibilityRole="progressbar">
       <Text style={{color: '#E6E1E5', fontSize: 16}}>{message}</Text>
     </View>
   );
@@ -56,12 +56,11 @@ function RootNavigation() {
     }
   }, [isAppReady]);
 
-  if (!isAppReady) {
-    return <BootstrapPlaceholder message="Loading…" />;
-  }
-
   return (
-    <View testID="nia:app-ready" style={{flex: 1}} collapsable={false}>
+    <View
+      testID={isAppReady ? 'nia:app-ready' : 'nia:bootstrap-placeholder'}
+      style={{flex: 1}}
+      collapsable={false}>
       <StatusBar style={isDark ? 'light' : 'dark'} />
       <Stack
         initialRouteName="(tabs)"
@@ -85,9 +84,21 @@ function RootNavigation() {
           options={{title: 'Licenses', headerShown: true}}
         />
       </Stack>
+      {!isAppReady ? (
+        <View style={styles.bootstrapOverlay} pointerEvents="auto">
+          <BootstrapPlaceholder message="Loading…" />
+        </View>
+      ) : null}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  bootstrapOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    zIndex: 1,
+  },
+});
 
 export default function RootLayout() {
   useEffect(() => {

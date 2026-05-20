@@ -12,9 +12,14 @@ import {TopicChip} from '../TopicChip';
 interface BookmarkButtonProps {
   readonly isBookmarked: boolean;
   readonly onPress: () => void;
+  readonly testID?: string;
 }
 
-export function BookmarkButton({isBookmarked, onPress}: BookmarkButtonProps) {
+export function BookmarkButton({
+  isBookmarked,
+  onPress,
+  testID = 'news-resource-bookmark',
+}: BookmarkButtonProps) {
   const {colors} = useNiaTheme();
 
   return (
@@ -25,7 +30,7 @@ export function BookmarkButton({isBookmarked, onPress}: BookmarkButtonProps) {
       }
       onPress={onPress}
       hitSlop={8}
-      testID="news-resource-bookmark">
+      testID={testID}>
       <MaterialCommunityIcons
         name={isBookmarked ? 'bookmark' : 'bookmark-outline'}
         size={24}
@@ -133,6 +138,7 @@ export function NewsResourceCardBody({
           <BookmarkButton
             isBookmarked={userNewsResource.isSaved}
             onPress={onToggleBookmark}
+            testID={`news-resource-bookmark:${userNewsResource.id}`}
           />
         ) : null}
       </View>
