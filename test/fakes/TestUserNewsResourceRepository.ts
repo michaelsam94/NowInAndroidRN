@@ -6,6 +6,32 @@ import type {
 
 import {createReplayObservable} from '../utils/observable';
 
+function filterUserNewsResources(
+  resources: readonly UserNewsResource[],
+  query?: NewsResourceQuery,
+): readonly UserNewsResource[] {
+  if (query === undefined) {
+    return resources;
+  }
+  return resources.filter(resource => {
+    if (
+      query.filterNewsIds !== null &&
+      !query.filterNewsIds.has(resource.id)
+    ) {
+      return false;
+    }
+    if (query.filterTopicIds !== null) {
+      const matchesTopic = resource.followableTopics.some(item =>
+        query.filterTopicIds!.has(item.topic.id),
+      );
+      if (!matchesTopic) {
+        return false;
+      }
+    }
+    return true;
+  });
+}
+
 export class TestUserNewsResourceRepository implements UserNewsResourceRepository {
   private readonly allSubject = createReplayObservable<readonly UserNewsResource[]>(
     [],
@@ -17,8 +43,11 @@ export class TestUserNewsResourceRepository implements UserNewsResourceRepositor
     readonly UserNewsResource[]
   >([]);
 
-  observeAll(_query?: NewsResourceQuery) {
-    return this.allSubject.observable;
+  observeAll(query?: NewsResourceQuery) {
+    return (emit: (value: readonly UserNewsResource[]) => void) =>
+      this.allSubject.observable(resources =>
+        emit(filterUserNewsResources(resources, query)),
+      );
   }
 
   observeAllForFollowedTopics() {

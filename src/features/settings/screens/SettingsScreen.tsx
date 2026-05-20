@@ -83,22 +83,20 @@ export function SettingsScreen({viewModel: vm}: SettingsScreenProps) {
         </View>
       </SettingsRow>
       <SettingsRow label="Dark mode">
-        <View className="flex-row flex-wrap">
-          {(
-            [
-              [DarkThemeConfig.FollowSystem, 'System'],
-              [DarkThemeConfig.Light, 'Light'],
-              [DarkThemeConfig.Dark, 'Dark'],
-            ] as const
-          ).map(([config, label]) => (
-            <ThemeOptionChip
-              key={config}
-              label={label}
-              selected={uiState.darkThemeConfig === config}
-              onPress={() => vm.onDarkThemeConfigChange(config)}
-            />
-          ))}
-        </View>
+        <Switch
+          value={
+            uiState.darkThemeConfig === DarkThemeConfig.Dark ||
+            (uiState.darkThemeConfig === DarkThemeConfig.FollowSystem && isDark)
+          }
+          onValueChange={enabled =>
+            vm.onDarkThemeConfigChange(
+              enabled ? DarkThemeConfig.Dark : DarkThemeConfig.Light,
+            )
+          }
+          accessibilityLabel="Dark mode"
+          accessibilityRole="switch"
+          testID="settings:dark-mode"
+        />
       </SettingsRow>
       {uiState.dynamicColorAvailable ? (
         <SettingsRow label="Dynamic color">
