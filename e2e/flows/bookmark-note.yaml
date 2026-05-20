@@ -10,6 +10,8 @@ appId: com.nowinandroidrn.demo
     timeout: 10000
 - tapOn:
     id: news-resource-bookmark
+    below:
+      id: newsResourceCard:1
 - assertVisible:
     id: bookmarkNote:input
 - tapOn:

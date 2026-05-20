@@ -24,6 +24,8 @@ appId: com.nowinandroidrn.demo
     timeout: 10000
 - tapOn:
     id: news-resource-bookmark
+    below:
+      id: search:results
 - pressKey: Back
 - tapOn:
     id: tab:bookmarks
